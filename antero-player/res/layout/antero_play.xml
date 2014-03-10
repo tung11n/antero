@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_centerInParent="true"
+              android:layout_gravity="center_vertical|center_horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="fill_parent">
+
+    <TextView android:id="@+id/antero_play"
+              android:gravity="center_vertical|center_horizontal"
+              android:textSize="50sp"
+              android:layout_centerInParent="true"
+              android:fontFamily="sans-serif-thin"
+              android:textStyle="normal|bold"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              />
+
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Antero Player</string>
+    <string name="scan">scan</string>
+    <string name="play">TTY</string>
+    <string name="tag_list">Registered tags</string>
+</resources>

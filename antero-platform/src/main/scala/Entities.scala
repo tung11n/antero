@@ -36,7 +36,7 @@ class User(val userName: String) {
   }
 }
 
-class Device(val name: String, val registerId: String)
+class Device(val name: String, val registrationId: String)
 
 class Trigger(val predicate: Predicate,
               val interval: Int,

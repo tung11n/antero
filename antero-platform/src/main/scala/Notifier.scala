@@ -32,10 +32,9 @@ class Notifier extends Actor with ActorLogging {
       val apiKey = configMap.getOrElse("gcm.apiKey", "")
       gcmSender = new Sender(apiKey)
 
-      registrationId = configMap.getOrElse("gcm.registrationId", "")
       numberOfWorkers = configMap.get("notifier.workers").map(n => n.toInt).filter(n => n > 0) getOrElse numberOfWorkers
       retry = configMap.get("notifier.retry").map(n => n.toInt).filter(n => n > 0) getOrElse retry
-      defaultRecipient = configMap.getOrElse("gcm.defaultRecipient", "")
+      //defaultRecipient = configMap.getOrElse("gcm.defaultRecipient", "")
 
       sender ! Acknowledge("notifier")
 
@@ -43,8 +42,9 @@ class Notifier extends Actor with ActorLogging {
 
     case Fire(user,message) =>
       import context.dispatcher
-      Future(Try(send(registrationId, defaultRecipient, message))) pipeTo sender
-//      message foreach {msg => Future(Try(send(registrationId, defaultRecipient, msg))) pipeTo sender }
+      user.getDevices.foreach {device =>
+        Future(Try(send(device.registrationId, user.userName, message))) pipeTo sender
+      }
   }
 
   @throws(classOf[IOException])

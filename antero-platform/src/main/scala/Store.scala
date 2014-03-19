@@ -16,21 +16,23 @@ class Store extends Actor with ActorLogging {
   private var configStore: ConfigStore = _
   private var processorRef: ActorRef = _
   private var channels: Map[String,Channel] = _
-  private var users: Map[String, User] = _
+  private var userManager: UserManager = _
 
   def receive: Actor.Receive = {
 
     case Config(configStore) =>
       this.configStore = configStore
       processorRef = configStore.components.getOrElse("processor", sender)
-      initialize
+      channels = Map("weather" -> new WeatherChannel(configStore))
+      userManager = UserManager(configStore.configMap)
       sender ! Acknowledge("store")
 
     case Ready(value) =>
       channels.get("weather") foreach { channel =>
         val predicate = channel.predicate("weather.coldAlert")
         val messageTemplate = channel.messageTemplate("weather.coldWeather")
-        val trigger = new Trigger(predicate, 60000, Map("zipCode"->"07642","temp"->"40"), null, messageTemplate)
+        val user = userManager.getUser("qwerty")
+        val trigger = new Trigger(predicate, 60000, Map("zipCode"->"07642","temp"->"40"), user, messageTemplate)
         processorRef ! RegisterTrigger(trigger)
       }
 
@@ -40,9 +42,26 @@ class Store extends Actor with ActorLogging {
       }
       
   }
+}
 
-  def initialize: Unit = {
-    channels = Map("weather" -> new WeatherChannel(configStore))
+class UserManager {
+  private var users: Map[String, User] = _
+  private var registrationId: String = _
+  private val defaultUser: User = new User("")
+
+  def getUser(userName: String): User = users.get(userName).getOrElse(defaultUser)
+}
+
+object UserManager {
+  val userManager = new UserManager
+
+  def apply(configMap: Map[String, String]) = {
+    userManager.registrationId = configMap.getOrElse("gcm.registrationId", "")
+    val user = new User("qwerty")
+    user.addDevice(new Device("Terminal", userManager.registrationId))
+    userManager.users = Map("qwerty" -> user)
+
+    userManager
   }
 }
 

@@ -1,7 +1,7 @@
 package antero.channel
 
 import antero.processor.EvalContext
-import antero.trigger.{MessageTemplate, Result, Predicate}
+import antero.system.{MessageTemplate, Result, Predicate}
 import scala.concurrent.Future
 
 /**

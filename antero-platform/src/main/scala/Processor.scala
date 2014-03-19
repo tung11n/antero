@@ -1,18 +1,16 @@
 package antero.processor
 
-import antero.message.Build
 import antero.system._
 import antero.system.Acknowledge
 import antero.system.Config
-import antero.trigger._
 import akka.actor.{ActorLogging, ActorRef, Props, Actor}
 import scala.concurrent.duration.Duration
-import java.util.concurrent.{Executors, TimeUnit}
+import java.util.concurrent.TimeUnit
 import akka.routing.RoundRobinRouter
 import akka.pattern.ask
 import akka.util.Timeout
 import scala.util.{Success, Failure}
-import scala.concurrent.{ExecutionContext, Future, Await}
+import scala.concurrent.{ExecutionContext, Future}
 import akka.event.LoggingAdapter
 
 /**
@@ -25,6 +23,7 @@ class Processor extends Actor with ActorLogging {
   var messageBuilder: ActorRef = _
 
   def receive: Actor.Receive = {
+
     case Config(configStore) =>
       val configMap = configStore.configMap
 
@@ -34,9 +33,9 @@ class Processor extends Actor with ActorLogging {
       bucketSize = configMap.get("processor.bucketSize").map(b => b.toInt).filter(b => b > 0) getOrElse bucketSize
       sender ! Acknowledge("store")
 
-//    case Ready(value) =>
+    case Ready(value) =>
 
-    case trigger: Trigger =>
+    case RegisterTrigger(trigger) =>
       val b = bucket(trigger.interval)
       supervisors.get(b) match {
         case Some(supervisor) =>
@@ -44,7 +43,7 @@ class Processor extends Actor with ActorLogging {
         case None =>
           val supervisor = context.actorOf(Props(classOf[Supervisor], messageBuilder, b, numberOfWorkers))
           supervisors += (b -> supervisor)
-          supervisor ! trigger
+          supervisor ! RegisterTrigger(trigger)
       }
   }
 
@@ -70,15 +69,15 @@ class Supervisor(messageBuilder: ActorRef, interval: Int, numberOfWorkers: Int) 
       Duration.create(1, TimeUnit.MILLISECONDS),
       Duration.create(interval, TimeUnit.MILLISECONDS),
       self,
-      "start"
+      Repeat("start")
     )(context.system.dispatcher)
   }
 
   def receive: Actor.Receive = {
-    case "start" =>
-      tobeEvaluated foreach {trigger => router ! trigger}
+    case Repeat("start") =>
+      tobeEvaluated foreach {trigger => router ! Evaluate(trigger)}
 
-    case trigger: Trigger =>
+    case RegisterTrigger(trigger) =>
       tobeEvaluated = trigger :: tobeEvaluated
   }
 }
@@ -88,11 +87,11 @@ class Supervisor(messageBuilder: ActorRef, interval: Int, numberOfWorkers: Int) 
  */
 class Worker(messageBuilder: ActorRef) extends Actor with ActorLogging {
   implicit val timeout = Timeout(5, TimeUnit.SECONDS)
-  implicit val ec = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(2))
+  import context.dispatcher
 
   def receive: Actor.Receive = {
 
-    case trigger: Trigger =>
+    case Evaluate(trigger) =>
 
       val cxt = new EvalContext(context.dispatcher, log, trigger.variables)
       //val result = Future { trigger.predicate.evaluate(cxt) }

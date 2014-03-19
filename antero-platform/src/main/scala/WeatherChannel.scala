@@ -3,7 +3,7 @@ package antero.channel.weather
 import antero.channel.Channel
 import antero.processor.EvalContext
 import antero.system.ConfigStore
-import antero.trigger.{MessageTemplate, Predicate, Result}
+import antero.system.{MessageTemplate, Predicate, Result}
 import scala.io.Source
 import java.net.URL
 import java.nio.charset.StandardCharsets

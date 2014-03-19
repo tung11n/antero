@@ -1,8 +1,7 @@
 package antero.message
 
 import akka.actor.{ActorRef, ActorLogging, Actor}
-import antero.system.{Build, Acknowledge, Fire, Config}
-import antero.trigger.{MessageTemplate, Trigger, Result}
+import antero.system.{Build, Acknowledge, Fire, Config,MessageTemplate, Trigger, Result}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
 import akka.pattern.{ask,pipe}

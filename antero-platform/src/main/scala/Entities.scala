@@ -1,4 +1,4 @@
-package antero.trigger
+package antero.system
 
 import antero.processor.EvalContext
 import scala.reflect.ClassTag
@@ -26,16 +26,20 @@ class Result(val predicateMet: Boolean, val payload: Any) {
   }
 }
 
-class User {
-  private var id: Long = _
-  private var userName: String = _
+class User(val userName: String) {
   private var devices = List[Device]()
+
+  def getDevices = devices
+
+  def addDevice(device: Device) = {
+    devices = device::devices
+  }
 }
 
-case class Device(name: String, registerId: String)
+class Device(val name: String, val registerId: String)
 
-case class Trigger(predicate: Predicate,
-                   interval: Int,
-                   variables: Map[String, String] = Map(),
-                   user: User = null,
-                   template: MessageTemplate)
+class Trigger(val predicate: Predicate,
+              val interval: Int,
+              val variables: Map[String, String],
+              val user: User,
+              val template: MessageTemplate)

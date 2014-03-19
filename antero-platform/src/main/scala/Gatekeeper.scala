@@ -6,10 +6,7 @@ import akka.actor._
 import antero.message.MessageBuilder
 import antero.notification.Notifier
 import antero.processor.Processor
-import antero.store.Store
-import antero.trigger.{Trigger, Result, User}
-import scala.Some
-import scala.concurrent.Future
+import antero.store.{DataType, Store}
 
 /**
  * Created by tungtt on 2/11/14.
@@ -105,3 +102,11 @@ case class Acknowledge(value: String)
 case class Config(configStore: ConfigStore)
 
 case class Build(result: Result, trigger: Trigger)
+
+case class Retrieve(dataType: DataType)
+
+case class Evaluate(trigger: Trigger)
+
+case class RegisterTrigger(trigger: Trigger)
+
+case class Repeat(value: String)

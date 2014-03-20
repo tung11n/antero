@@ -22,7 +22,6 @@ class Notifier extends Actor with ActorLogging {
   var registrationId: String = _
   var numberOfWorkers: Int = 5
   var retry: Int = 2
-  var defaultRecipient: String = _
 
   def receive: Actor.Receive = {
 
@@ -34,13 +33,12 @@ class Notifier extends Actor with ActorLogging {
 
       numberOfWorkers = configMap.get("notifier.workers").map(n => n.toInt).filter(n => n > 0) getOrElse numberOfWorkers
       retry = configMap.get("notifier.retry").map(n => n.toInt).filter(n => n > 0) getOrElse retry
-      //defaultRecipient = configMap.getOrElse("gcm.defaultRecipient", "")
 
       sender ! Acknowledge("notifier")
 
     case Ready(value) =>
 
-    case Fire(user,message) =>
+    case Notify(user,message) =>
       import context.dispatcher
       user.getDevices.foreach {device =>
         Future(Try(send(device.registrationId, user.userName, message))) pipeTo sender

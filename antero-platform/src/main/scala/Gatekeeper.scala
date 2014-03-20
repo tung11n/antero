@@ -7,6 +7,7 @@ import antero.message.MessageBuilder
 import antero.notification.Notifier
 import antero.processor.Processor
 import antero.store.{DataType, Store}
+import scala.concurrent.Future
 
 /**
  * Created by tungtt on 2/11/14.
@@ -95,7 +96,7 @@ class Gatekeeper(fileName: String) extends Actor with ActorLogging {
 
 case class Ready(value: String)
 
-case class Fire(user: User, message: String)
+case class Notify(user: User, message: String)
 
 case class Acknowledge(value: String)
 

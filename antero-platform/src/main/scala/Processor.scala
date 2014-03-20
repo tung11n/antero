@@ -21,6 +21,7 @@ class Processor extends Actor with ActorLogging {
   var supervisors: Map[Int,ActorRef] = Map()
   var numberOfWorkers: Int = 2
   var messageBuilder: ActorRef = _
+  var notifier: ActorRef = _
 
   def receive: Actor.Receive = {
 
@@ -28,6 +29,7 @@ class Processor extends Actor with ActorLogging {
       val configMap = configStore.configMap
 
       messageBuilder = configStore.components.getOrElse("messageBuilder", sender)
+      notifier = configStore.components.getOrElse("notifier", sender)
 
       numberOfWorkers = configMap.get("processor.workers").map(n => n.toInt).filter(n => n > 0) getOrElse numberOfWorkers
       bucketSize = configMap.get("processor.bucketSize").map(b => b.toInt).filter(b => b > 0) getOrElse bucketSize
@@ -41,7 +43,7 @@ class Processor extends Actor with ActorLogging {
         case Some(supervisor) =>
           supervisor ! trigger
         case None =>
-          val supervisor = context.actorOf(Props(classOf[Supervisor], messageBuilder, b, numberOfWorkers))
+          val supervisor = context.actorOf(Props(classOf[Supervisor], notifier, messageBuilder, b, numberOfWorkers))
           supervisors += (b -> supervisor)
           supervisor ! RegisterTrigger(trigger)
       }
@@ -55,14 +57,14 @@ class Processor extends Actor with ActorLogging {
  * @param interval
  * @param numberOfWorkers
  */
-class Supervisor(messageBuilder: ActorRef, interval: Int, numberOfWorkers: Int) extends Actor with ActorLogging {
+class Supervisor(notifier: ActorRef, messageBuilder: ActorRef, interval: Int, numberOfWorkers: Int) extends Actor with ActorLogging {
   private var tobeEvaluated = List[Trigger]()
   private var router: ActorRef = _
 
   @throws(classOf[Exception])
   override def preStart(): Unit = {
     log.info(f"Start a supervisor with interval of $interval%d and $numberOfWorkers%d workers")
-    router = context.actorOf(Props(classOf[Worker], messageBuilder).withRouter(RoundRobinRouter(numberOfWorkers)))
+    router = context.actorOf(Props(classOf[Worker], notifier, messageBuilder).withRouter(RoundRobinRouter(numberOfWorkers)))
 
     // calls itself every $interval milliseconds
     context.system.scheduler.schedule(
@@ -85,7 +87,7 @@ class Supervisor(messageBuilder: ActorRef, interval: Int, numberOfWorkers: Int) 
 /**
  *
  */
-class Worker(messageBuilder: ActorRef) extends Actor with ActorLogging {
+class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with ActorLogging {
   implicit val timeout = Timeout(5, TimeUnit.SECONDS)
   import context.dispatcher
 
@@ -93,13 +95,15 @@ class Worker(messageBuilder: ActorRef) extends Actor with ActorLogging {
 
     case Evaluate(trigger) =>
 
-      val cxt = new EvalContext(context.dispatcher, log, trigger.variables)
-      //val result = Future { trigger.predicate.evaluate(cxt) }
-      val result = trigger.predicate.evaluate(cxt)
+      val notified = for {
+        result <- Future { trigger.predicate.evaluate(new EvalContext(context.dispatcher, log, trigger.variables))}
+        message <- ask(messageBuilder, Build(result, trigger)).mapTo[String]
+        notified <- ask(notifier, Notify(trigger.user, message))
+      } yield (notified)
 
-      ask(messageBuilder, Build(result, trigger)) onSuccess {
-        case Success(v) => log.info("Message are getting built")
-        case Failure(e) => log.error("ERROR ", e)
+      notified onSuccess {
+        case Success(v) => log.info("Operation success")
+        case Failure(e) => log.info("Operation failure")
       }
   }
 }

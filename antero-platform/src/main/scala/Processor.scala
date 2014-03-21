@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 import akka.routing.RoundRobinRouter
 import akka.pattern.ask
 import akka.util.Timeout
-import scala.util.{Success, Failure}
+import scala.util.{Try, Success, Failure}
 import scala.concurrent.{ExecutionContext, Future}
 import akka.event.LoggingAdapter
 
@@ -41,7 +41,7 @@ class Processor extends Actor with ActorLogging {
       val b = bucket(trigger.interval)
       supervisors.get(b) match {
         case Some(supervisor) =>
-          supervisor ! trigger
+          supervisor ! RegisterTrigger(trigger)
         case None =>
           val supervisor = context.actorOf(Props(classOf[Supervisor], notifier, messageBuilder, b, numberOfWorkers))
           supervisors += (b -> supervisor)
@@ -95,16 +95,28 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
 
     case Evaluate(trigger) =>
 
-      val notified = for {
-        result <- Future { trigger.predicate.evaluate(new EvalContext(context.dispatcher, log, trigger.variables))}
+      val receipt = for {
+        result <- Future { evaluate(trigger) }
         message <- ask(messageBuilder, Build(result, trigger)).mapTo[String]
         notified <- ask(notifier, Notify(trigger.user, message))
       } yield (notified)
 
-      notified onSuccess {
+      receipt onComplete {
         case Success(v) => log.info("Operation success")
         case Failure(e) => log.info("Operation failure")
       }
+  }
+
+  def evaluate(trigger: Trigger): Option[Result] = {
+    val evalContext = new EvalContext(context.dispatcher, log, trigger.variables)
+
+    try {
+      trigger.predicate.evaluate(evalContext)
+    } catch {
+      case e:Exception =>
+        log.error(e, "error")
+        None
+    }
   }
 }
 

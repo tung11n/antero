@@ -102,7 +102,7 @@ case class Acknowledge(value: String)
 
 case class Config(configStore: ConfigStore)
 
-case class Build(result: Result, trigger: Trigger)
+case class Build(result: Option[Result], trigger: Trigger)
 
 case class Retrieve(dataType: DataType)
 

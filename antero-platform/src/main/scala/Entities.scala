@@ -7,7 +7,7 @@ import scala.reflect.ClassTag
  * Created by tungtt on 2/8/14.
  */
 trait Predicate {
-  def evaluate(context: EvalContext): Result
+  def evaluate(context: EvalContext): Option[Result]
 }
 
 trait MessageTemplate {

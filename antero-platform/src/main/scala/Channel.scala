@@ -11,7 +11,7 @@ abstract class Channel {
 
   // the default predicate always returns false
   val defaultPredicate = new Predicate {
-    def evaluate(context: EvalContext): Result = new Result(true, 0)
+    def evaluate(context: EvalContext): Option[Result] = Some(new Result(true, 0))
   }
 
   val defaultMessageTemplate = new MessageTemplate {

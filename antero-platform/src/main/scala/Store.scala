@@ -7,7 +7,7 @@ import antero.system._
 import antero.system.Acknowledge
 import antero.system.Config
 import antero.system.Ready
-import antero.system.{User,Trigger,Predicate}
+import antero.system.{User,Trigger}
 
 /**
  * Created by tungtt on 2/11/14.

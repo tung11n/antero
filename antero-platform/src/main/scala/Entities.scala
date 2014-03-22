@@ -14,9 +14,7 @@ trait MessageTemplate {
   def output(args: Map[String,String], result: Result): String
 }
 
-class Result(val predicateMet: Boolean, val payload: Any) {
-
-  def isSatisfied = predicateMet
+class Result(val payload: Any) {
 
   def extract[A: ClassTag]: A = {
     payload match {

@@ -32,6 +32,14 @@ class ConfigStore() {
 
   def addComponent(key: String, componentRef: ActorRef) = components += (key -> componentRef)
 
+  def getStringSetting(varName: String, fallbackValue: String = ""): String = {
+    configMap.getOrElse(varName, fallbackValue)
+  }
+
+  def getIntSetting(varName: String,fallbackValue: Int = 0): Int = {
+    configMap.get(varName).map(n => n.toInt).filter(n => n > 0) getOrElse fallbackValue
+  }
+
   override def toString = {
     super.toString
   }
@@ -96,7 +104,7 @@ class Gatekeeper(fileName: String) extends Actor with ActorLogging {
 
 case class Ready(value: String)
 
-case class Notify(user: User, message: String)
+case class Notify(user: User, message: Option[String])
 
 case class Acknowledge(value: String)
 

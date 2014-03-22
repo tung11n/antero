@@ -9,7 +9,7 @@ import antero.system.Ready
 import com.google.android.gcm.server.Sender
 import scala.concurrent.Future
 import java.io.IOException
-import scala.util.Try
+
 
 /**
  * Created by tungtt on 2/17/14.
@@ -26,11 +26,9 @@ class Notifier extends Actor with ActorLogging {
   def receive: Actor.Receive = {
 
     case Config(configStore) =>
-      implicit val configMap = configStore.configMap
-
-      gcmSender = new Sender(Utils.getStringSetting("gcm.apiKey"))
-      numberOfWorkers = Utils.getIntSetting("notifier.workers", numberOfWorkers)
-      retry = Utils.getIntSetting("notifier.retry", retry)
+      gcmSender = new Sender(configStore.getStringSetting("gcm.apiKey"))
+      numberOfWorkers = configStore.getIntSetting("notifier.workers", numberOfWorkers)
+      retry = configStore.getIntSetting("notifier.retry", retry)
 
       sender ! Acknowledge("notifier")
 
@@ -39,7 +37,13 @@ class Notifier extends Actor with ActorLogging {
     case Notify(user,message) =>
       import context.dispatcher
       user.getDevices.foreach {device =>
-        Future(Try(send(device.registrationId, user.userName, message))) pipeTo sender
+        Future {
+          try {
+            message foreach {m => send(device.registrationId, user.userName, m)}
+          } catch {
+            case e:Exception => log.error(e, "")
+          }
+        } pipeTo sender
       }
   }
 

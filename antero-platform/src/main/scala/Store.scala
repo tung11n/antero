@@ -32,7 +32,7 @@ class Store extends Actor with ActorLogging {
         val predicate = channel.predicate("weather.coldAlert")
         val messageTemplate = channel.messageTemplate("weather.coldWeather")
         val user = userManager.getUser("qwerty")
-        val trigger = new Trigger(predicate, 60000, Map("zipCode"->"07642","temp"->"40"), user, messageTemplate)
+        val trigger = new Trigger(predicate, 60000, Map("zipCode"->"07642","temp"->"30"), user, messageTemplate)
         processor ! RegisterTrigger(trigger)
       }
 

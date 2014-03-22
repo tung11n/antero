@@ -22,13 +22,10 @@ class MessageBuilder extends Actor with ActorLogging {
       sender ! Acknowledge("messageBuilder")
 
     case Build(result, trigger) =>
-      result foreach {r =>
-        log.info("Building message")
-        buildMessage(trigger.template, r, trigger.variables) pipeTo sender
-      }
+      buildMessage(trigger.template, result, trigger.variables) pipeTo sender
   }
 
-  def buildMessage(template: MessageTemplate, result: Result, args: Map[String,String]): Future[String] = {
-    Future { template.output(args, result) }
+  def buildMessage(template: MessageTemplate, result: Option[Result], args: Map[String,String]): Future[Option[String]] = {
+    Future { result map { r => template.output(args, r) } }
   }
 }

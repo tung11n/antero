@@ -35,18 +35,18 @@ class TemperaturePredicate(val channel: WeatherChannel) extends Predicate {
     val zipCode = context.getVar("zipCode")
     if (zipCode.isEmpty)
       throw new RuntimeException("zip code not available")
-    //return None
 
     val log = context.log
     val url = new URL(channel.WundergroundUrl + channel.apiKey + channel.ConditionMethodCall + zipCode + ".json")
 
     val response = Source.fromURL(url, StandardCharsets.UTF_8.name()).mkString
     val condition = parse(response).extract[Map[String, Map[String, JValue]]].get("current_observation")
-    val temp = condition.flatMap(o => Some(o.get("temp_f"))).flatMap(t=>t).getOrElse(JDouble(9999)).extract[Double]
+    val currentTemp = condition.flatMap(o => Some(o.get("temp_f"))).flatMap(t=>t).getOrElse(JDouble(9999)).extract[Double]
 
-    val t = context.getVar("temp").toDouble
-    log.info(s"URL $url temp=$temp")
-    Some(new Result(t < temp, temp))
+    val lowerBound = context.getVar("temp").toDouble
+    log.info(f"URL $url%s. Current temp: $currentTemp%f. Lower bound: $lowerBound%f")
+
+    if (lowerBound > currentTemp) Some(new Result(currentTemp)) else None
   }
 }
 

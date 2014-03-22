@@ -26,13 +26,14 @@ class Processor extends Actor with ActorLogging {
   def receive: Actor.Receive = {
 
     case Config(configStore) =>
-      val configMap = configStore.configMap
+      implicit val configMap = configStore.configMap
 
       messageBuilder = configStore.components.getOrElse("messageBuilder", sender)
       notifier = configStore.components.getOrElse("notifier", sender)
 
-      numberOfWorkers = configMap.get("processor.workers").map(n => n.toInt).filter(n => n > 0) getOrElse numberOfWorkers
-      bucketSize = configMap.get("processor.bucketSize").map(b => b.toInt).filter(b => b > 0) getOrElse bucketSize
+      numberOfWorkers = Utils.getIntSetting("processor.workers", numberOfWorkers)
+      bucketSize = Utils.getIntSetting("processor.bucketSize", bucketSize)
+
       sender ! Acknowledge("store")
 
     case Ready(value) =>
@@ -102,7 +103,7 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
       } yield (notified)
 
       receipt onComplete {
-        case Success(v) => log.info("Operation success")
+        case Success(v) => log.info(s"User ${trigger.user} notified. Message-ID=$v")
         case Failure(e) => log.info("Operation failure")
       }
   }

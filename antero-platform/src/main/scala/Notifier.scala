@@ -26,13 +26,11 @@ class Notifier extends Actor with ActorLogging {
   def receive: Actor.Receive = {
 
     case Config(configStore) =>
-      val configMap = configStore.configMap
+      implicit val configMap = configStore.configMap
 
-      val apiKey = configMap.getOrElse("gcm.apiKey", "")
-      gcmSender = new Sender(apiKey)
-
-      numberOfWorkers = configMap.get("notifier.workers").map(n => n.toInt).filter(n => n > 0) getOrElse numberOfWorkers
-      retry = configMap.get("notifier.retry").map(n => n.toInt).filter(n => n > 0) getOrElse retry
+      gcmSender = new Sender(Utils.getStringSetting("gcm.apiKey"))
+      numberOfWorkers = Utils.getIntSetting("notifier.workers", numberOfWorkers)
+      retry = Utils.getIntSetting("notifier.retry", retry)
 
       sender ! Acknowledge("notifier")
 
@@ -53,7 +51,6 @@ class Notifier extends Actor with ActorLogging {
         addData(MessagePayload, msg).
         build()
 
-    log.info(s"Sending notification to ${registrationId}")
     val result = gcmSender.send(message, registrationId, retry)
     if (result.getMessageId == null) {
       throw new RuntimeException(result.getErrorCodeName)

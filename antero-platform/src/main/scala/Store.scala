@@ -14,7 +14,7 @@ import antero.system.{User,Trigger}
  */
 class Store extends Actor with ActorLogging {
   private var configStore: ConfigStore = _
-  private var processorRef: ActorRef = _
+  private var processor: ActorRef = _
   private var channels: Map[String,Channel] = _
   private var userManager: UserManager = _
 
@@ -22,7 +22,7 @@ class Store extends Actor with ActorLogging {
 
     case Config(configStore) =>
       this.configStore = configStore
-      processorRef = configStore.components.getOrElse("processor", sender)
+      processor = configStore.components.getOrElse("processor", sender)
       channels = Map("weather" -> new WeatherChannel(configStore))
       userManager = UserManager(configStore.configMap)
       sender ! Acknowledge("store")
@@ -33,7 +33,7 @@ class Store extends Actor with ActorLogging {
         val messageTemplate = channel.messageTemplate("weather.coldWeather")
         val user = userManager.getUser("qwerty")
         val trigger = new Trigger(predicate, 60000, Map("zipCode"->"07642","temp"->"40"), user, messageTemplate)
-        processorRef ! RegisterTrigger(trigger)
+        processor ! RegisterTrigger(trigger)
       }
 
     case Retrieve(dataType) =>

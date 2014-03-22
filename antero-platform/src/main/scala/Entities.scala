@@ -34,6 +34,8 @@ class User(val userName: String) {
   def addDevice(device: Device) = {
     devices = device::devices
   }
+
+  override def toString = userName
 }
 
 class Device(val name: String, val registrationId: String)

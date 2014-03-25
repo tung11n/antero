@@ -83,19 +83,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="27" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="705">
+            <state line="15" column="27" selection-start="724" selection-end="724" vertical-scroll-proportion="0.27272728" vertical-offset="0" max-vertical-offset="825">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProximityService.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ProximityService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/antero/player/tag/ProximityService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="159" column="9" selection-start="6061" selection-end="6061" vertical-scroll-proportion="0.09090909" vertical-offset="2205" max-vertical-offset="3630">
+            <state line="159" column="9" selection-start="6061" selection-end="6061" vertical-scroll-proportion="0.0" vertical-offset="2205" max-vertical-offset="3630">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -629,13 +629,6 @@
         <state line="17" column="0" selection-start="477" selection-end="477" vertical-scroll-proportion="0.41095892" vertical-offset="0" max-vertical-offset="438" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="27" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="705">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/antero/player/messaging/PlayActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="38" selection-start="706" selection-end="706" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="4455">
@@ -694,10 +687,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/antero/player/tag/ProximityService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="9" selection-start="6061" selection-end="6061" vertical-scroll-proportion="0.09090909" vertical-offset="2205" max-vertical-offset="3630">
+        <state line="159" column="9" selection-start="6061" selection-end="6061" vertical-scroll-proportion="0.0" vertical-offset="2205" max-vertical-offset="3630">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="27" selection-start="724" selection-end="724" vertical-scroll-proportion="0.27272728" vertical-offset="0" max-vertical-offset="825">
+          <folding />
         </state>
       </provider>
     </entry>

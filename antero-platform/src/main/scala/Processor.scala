@@ -6,7 +6,7 @@ import antero.system.Config
 import akka.actor.{ActorLogging, ActorRef, Props, Actor}
 import scala.concurrent.duration.Duration
 import java.util.concurrent.TimeUnit
-import akka.routing.RoundRobinRouter
+import akka.routing.RoundRobinPool
 import akka.pattern.ask
 import akka.util.Timeout
 import scala.util.{Try, Success, Failure}
@@ -63,7 +63,7 @@ class Supervisor(notifier: ActorRef, messageBuilder: ActorRef, interval: Int, nu
   @throws(classOf[Exception])
   override def preStart(): Unit = {
     log.info(f"Start a supervisor with interval of $interval%d and $numberOfWorkers%d workers")
-    router = context.actorOf(Props(classOf[Worker], notifier, messageBuilder).withRouter(RoundRobinRouter(numberOfWorkers)))
+    router = context.actorOf(Props(classOf[Worker], notifier, messageBuilder).withRouter(RoundRobinPool(numberOfWorkers)))
 
     // calls itself every $interval milliseconds
     context.system.scheduler.schedule(

@@ -40,18 +40,22 @@ object Dependencies {
   import Dependency._
  
   val anteroPlatformKernel = Seq(
-    akkaKernel, akkaSlf4j, json4s, logback
+    akkaKernel, akkaSlf4j, json4s, sprayCan, sprayRouting, logback
   )
 }
  
 object Dependency {
   // Versions
   object V {
-    val Akka      = "2.2.3"
+    val Akka      = "2.3.0"
+    val spray = "1.3.1"
+    val json4s = "3.2.7"
   }
  
   val akkaKernel = "com.typesafe.akka" %% "akka-kernel" % V.Akka
   val akkaSlf4j  = "com.typesafe.akka" %% "akka-slf4j"  % V.Akka
-  val json4s = "org.json4s" %% "json4s-native" % "3.2.7"
+  val sprayCan = "io.spray" % "spray-can" % V.spray
+  var sprayRouting = "io.spray" % "spray-routing" % V.spray
+  val json4s = "org.json4s" %% "json4s-native" % V.json4s
   val logback    = "ch.qos.logback"    % "logback-classic" % "1.0.0"
 }

@@ -1,6 +1,7 @@
 package antero.store
 
 import akka.actor.{ActorLogging, ActorRef, Actor}
+import akka.pattern.pipe
 import antero.channel.Channel
 import antero.channel.weather.WeatherChannel
 import antero.system._
@@ -8,6 +9,7 @@ import antero.system.Acknowledge
 import antero.system.Config
 import antero.system.Ready
 import antero.system.{User,Trigger}
+import scala.concurrent.Future
 
 /**
  * Created by tungtt on 2/11/14.
@@ -37,8 +39,11 @@ class Store extends Actor with ActorLogging {
       }
 
     case Retrieve(dataType) =>
+      import context.dispatcher
+
       dataType match {
         case UserDetails(userName) =>
+          Future { userManager.getUser(userName) } pipeTo sender
       }
       
   }
@@ -68,3 +73,5 @@ object UserManager {
 sealed trait DataType
 
 case class UserDetails(userName: String) extends DataType
+
+case class TriggerDetails()

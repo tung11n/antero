@@ -14,6 +14,11 @@ trait MessageTemplate {
   def output(args: Map[String,String], result: Result): String
 }
 
+class Event {
+  def predicate: Predicate
+  def message: MessageTemplate
+}
+
 class Result(val payload: Any) {
 
   def extract[A: ClassTag]: A = {

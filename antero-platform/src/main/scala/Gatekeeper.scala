@@ -3,6 +3,7 @@ package antero.system
 import akka.kernel.Bootable
 import akka.actor._
 
+import antero.http.HttpService
 import antero.message.MessageBuilder
 import antero.notification.Notifier
 import antero.processor.Processor
@@ -93,6 +94,7 @@ class Gatekeeper(fileName: String) extends Actor with ActorLogging {
     configStore.addComponent("processor", context.actorOf(Props[Processor]))
     configStore.addComponent("messageBuilder", context.actorOf(Props[MessageBuilder]))
     configStore.addComponent("notifier", context.actorOf(Props[Notifier]))
+    configStore.addComponent("httpService",  context.actorOf(Props[HttpService]))
 
     configStore.components.values foreach {ref => ref ! Config(configStore)}
   }

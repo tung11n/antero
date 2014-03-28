@@ -12,6 +12,14 @@ object Utils {
   def getIntSetting(varName: String,fallbackValue: Int = 0)(implicit configMap: Map[String,String]): Int = {
     configMap.get(varName).map(n => n.toInt).filter(n => n > 0) getOrElse fallbackValue
   }
+
+  def loadFile[A](fileName: String)(f: String=>(String,A)): Map[String,A] = {
+    scala.io.Source.fromFile(fileName).
+      getLines().
+      filter(line => !line.startsWith("#")).
+      map(line=>f(line)).
+      toMap
+  }
 }
 
 case class Countdown(var count: Int) {

@@ -50,7 +50,10 @@ object ConfigStore {
 
   def apply(fileName: String) = {
     val configStore = new ConfigStore()
-    configStore.configMap = loadConfig(fileName)
+    configStore.configMap = Utils.loadFile(fileName) { line =>
+      val s = line.split("=")
+      if (s.size == 2) (s(0).trim, s(1).trim) else (s(0).trim,"")
+    }
     configStore
   }
 

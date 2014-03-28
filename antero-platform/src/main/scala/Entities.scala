@@ -13,11 +13,11 @@ trait Predicate {
 trait MessageTemplate {
   def output(args: Map[String,String], result: Result): String
 }
-
+/*
 class Event {
   def predicate: Predicate
   def message: MessageTemplate
-}
+}*/
 
 class Result(val payload: Any) {
 
@@ -43,8 +43,29 @@ class User(val userName: String) {
 
 class Device(val name: String, val registrationId: String)
 
+
 class Trigger(val predicate: Predicate,
               val interval: Int,
               val variables: Map[String, String],
               val user: User,
               val template: MessageTemplate)
+
+object Trigger {
+  def defaultTrigger: Trigger = {
+    val defaultPredicate: Predicate = new Predicate {
+      def evaluate(context: EvalContext): Option[Result] = None
+    }
+    val defaultMessageTemplate = new MessageTemplate {
+      def output(args: Map[String, String], result: Result): String = ""
+    }
+    new Trigger(defaultPredicate, 0, Map(), new User(""), defaultMessageTemplate)
+  }
+}
+
+class TriggerBuilder(val id: String,
+              val channelName: String,
+              val predicateName: String,
+              val interval: Int,
+              val variables: Map[String, String],
+              val userName: String,
+              val templateName: String)

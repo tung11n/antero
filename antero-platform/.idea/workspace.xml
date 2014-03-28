@@ -64,13 +64,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="HtppService.scala" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/HtppService.scala">
+      <file leaf-file-name="Gatekeeper.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Gatekeeper.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="29" selection-start="2022" selection-end="2022" vertical-scroll-proportion="0.36363637" vertical-offset="705" max-vertical-offset="1530">
-              <folding>
-                <element signature="e#21#40#0" expanded="true" />
-              </folding>
+            <state line="25" column="13" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1845">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,7 +76,7 @@
       <file leaf-file-name="MessageBuilder.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/MessageBuilder.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="6" selection-start="351" selection-end="351" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+            <state line="24" column="27" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
               <folding />
             </state>
           </provider>
@@ -87,27 +85,27 @@
       <file leaf-file-name="WeatherChannel.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/WeatherChannel.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="0" selection-start="1780" selection-end="1780" vertical-scroll-proportion="0.0" vertical-offset="81" max-vertical-offset="870">
+            <state line="10" column="0" selection-start="273" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1005">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Store.scala" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Store.scala" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Store.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="1" selection-start="1587" selection-end="1587" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="1230">
+            <state line="33" column="0" selection-start="1159" selection-end="1159" vertical-scroll-proportion="0.018181818" vertical-offset="480" max-vertical-offset="1905">
               <folding>
-                <element signature="e#22#71#0" expanded="true" />
+                <element signature="e#22#78#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Services.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/Services.scala">
+      <file leaf-file-name="Channel.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Channel.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="2" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="645">
+            <state line="10" column="0" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
               <folding />
             </state>
           </provider>
@@ -116,7 +114,7 @@
       <file leaf-file-name="Entities.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Entities.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="33" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+            <state line="54" column="53" selection-start="1171" selection-end="1171" vertical-scroll-proportion="0.0" vertical-offset="263" max-vertical-offset="1125">
               <folding />
             </state>
           </provider>
@@ -125,10 +123,8 @@
       <file leaf-file-name="Processor.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Processor.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="2" selection-start="2838" selection-end="2892" vertical-scroll-proportion="0.0" vertical-offset="885" max-vertical-offset="2010">
-              <folding>
-                <element signature="e#26#48#0" expanded="true" />
-              </folding>
+            <state line="44" column="57" selection-start="1407" selection-end="1437" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1845">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,17 +136,25 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/main/scala/Processor.scala" />
-        <option value="$PROJECT_DIR$/src/main/resources/antero.properties" />
         <option value="$PROJECT_DIR$/build.sbt" />
-        <option value="$PROJECT_DIR$/project/Build.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Store.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/HtppService.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Services.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/HtppService.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Gatekeeper.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Utils.scala" />
+        <option value="$PROJECT_DIR$/project/Build.scala" />
+        <option value="$PROJECT_DIR$/src/main/resources/antero.properties" />
         <option value="$PROJECT_DIR$/src/main/scala/Entities.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Store.scala" />
+        <option value="$PROJECT_DIR$/src/main/resources/trigger.data" />
       </list>
     </option>
   </component>
@@ -184,6 +188,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -191,15 +197,9 @@
               <option name="myItemId" value="antero-platform" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="antero-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="antero-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -210,48 +210,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="antero-platform" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WeatherChannel.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="antero-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="antero-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Utils.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -294,55 +252,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Processor.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="antero-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="antero-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HtppService.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="antero-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="antero-platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -380,8 +290,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -391,7 +299,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="FullScreen" value="true" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -400,8 +308,19 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="recentsLimit" value="5" />
+    <property name="dynamic.classpath" value="false" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Scala Console.Scala Console">
+    <configuration default="false" name="Scala Console" type="ScalaScriptConsoleRunConfiguration" factoryName="Scala Console" temporary="true">
+      <module name="antero-platform" />
+      <setting name="vmparams4" value="-Djline.terminal=NONE" />
+      <setting name="consoleArgs" value="-usejavacp" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -428,12 +347,32 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
+    <configuration default="true" type="ScalaScriptConsoleRunConfiguration" factoryName="Scala Console">
+      <module name="" />
+      <setting name="vmparams4" value="-Djline.terminal=NONE" />
+      <setting name="consoleArgs" value="-usejavacp" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -461,19 +400,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -529,7 +455,14 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
-    <list size="0" />
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Scala Console.Scala Console" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Scala Console.Scala Console" />
+      </list>
+    </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
@@ -562,7 +495,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -576,14 +509,14 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -607,6 +540,57 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Gatekeeper.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="13" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1965">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/MessageBuilder.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="27" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/WeatherChannel.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="273" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1005">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Store.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="13" selection-start="1041" selection-end="1041" vertical-scroll-proportion="0.0" vertical-offset="214" max-vertical-offset="1605">
+          <folding>
+            <element signature="e#22#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Services.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="2" selection-start="199" selection-end="199" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="660">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Entities.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="18" selection-start="1160" selection-end="1160" vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="945">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Processor.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="27" selection-start="1567" selection-end="1567" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="2010">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/HtppService.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="37" column="47" selection-start="1099" selection-end="1099" vertical-scroll-proportion="0.0" vertical-offset="555" max-vertical-offset="915">
@@ -633,9 +617,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/scala/Processor.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="20" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="2010">
-          <folding>
-            <element signature="e#26#48#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -665,9 +647,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/scala/Processor.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="20" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="2010">
-          <folding>
-            <element signature="e#26#48#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -676,158 +656,182 @@
         <state line="53" column="13" selection-start="2253" selection-end="2253" vertical-scroll-proportion="0.33251232" vertical-offset="165" max-vertical-offset="2055" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/antero.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="92" selection-end="92" vertical-scroll-proportion="0.11083744" vertical-offset="0" max-vertical-offset="812" />
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-http/srcs/spray-http-1.3.1-sources.jar!/spray/http/HttpMessage.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="146" column="11" selection-start="5105" selection-end="5105" vertical-scroll-proportion="-3.1636364" vertical-offset="4545" max-vertical-offset="5370" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="30" selection-start="320" selection-end="320" vertical-scroll-proportion="0.21818182" vertical-offset="0" max-vertical-offset="825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.10.3-sources.jar!/scala/reflect/ClassTag.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="6" selection-start="1488" selection-end="1488" vertical-scroll-proportion="0.6363636" vertical-offset="0" max-vertical-offset="2280">
-          <folding />
-        </state>
+        <state line="37" column="6" selection-start="1488" selection-end="1488" vertical-scroll-proportion="0.6363636" vertical-offset="0" max-vertical-offset="2280" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-routing/srcs/spray-routing-1.3.1-sources.jar!/spray/routing/directives/PathDirectives.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="32" selection-start="1221" selection-end="1221" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="1590">
-          <folding />
-        </state>
+        <state line="32" column="32" selection-start="1221" selection-end="1221" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="1590" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-httpx/srcs/spray-httpx-1.3.1-sources.jar!/spray/httpx/BaseJson4sSupport.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="7" selection-start="845" selection-end="845" vertical-scroll-proportion="0.33665836" vertical-offset="0" max-vertical-offset="802">
-          <folding />
-        </state>
+        <state line="25" column="7" selection-start="845" selection-end="845" vertical-scroll-proportion="0.33665836" vertical-offset="0" max-vertical-offset="802" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-httpx/srcs/spray-httpx-1.3.1-sources.jar!/spray/httpx/Json4sSupport.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="37" selection-start="1312" selection-end="1312" vertical-scroll-proportion="0.36363637" vertical-offset="0" max-vertical-offset="825">
-          <folding />
-        </state>
+        <state line="34" column="37" selection-start="1312" selection-end="1312" vertical-scroll-proportion="0.36363637" vertical-offset="0" max-vertical-offset="825" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-routing/srcs/spray-routing-1.3.1-sources.jar!/spray/routing/PathMatcher.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="404" column="5" selection-start="15908" selection-end="15908" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="6075">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Processor.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="2" selection-start="2838" selection-end="2892" vertical-scroll-proportion="0.0" vertical-offset="885" max-vertical-offset="2010">
-          <folding>
-            <element signature="e#26#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/WeatherChannel.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="0" selection-start="1780" selection-end="1780" vertical-scroll-proportion="0.0" vertical-offset="81" max-vertical-offset="870">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/Build.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="26" selection-start="888" selection-end="888" vertical-scroll-proportion="0.21446384" vertical-offset="158" max-vertical-offset="960">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.10.3-sources.jar!/scala/concurrent/Future.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="6" selection-start="5458" selection-end="5458" vertical-scroll-proportion="0.37931034" vertical-offset="1597" max-vertical-offset="10320">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/MessageBuilder.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="6" selection-start="351" selection-end="351" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Utils.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="11" selection-start="468" selection-end="468" vertical-scroll-proportion="0.29090908" vertical-offset="0" max-vertical-offset="825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-routing/srcs/spray-routing-1.3.1-sources.jar!/spray/routing/HttpService.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="6" selection-start="801" selection-end="801" vertical-scroll-proportion="0.10909091" vertical-offset="0" max-vertical-offset="1275">
-          <folding />
-        </state>
+        <state line="404" column="5" selection-start="15908" selection-end="15908" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="6075" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-httpx/srcs/spray-httpx-1.3.1-sources.jar!/spray/httpx/marshalling/Marshaller.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="6" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.18329178" vertical-offset="588" max-vertical-offset="2055">
-          <folding />
-        </state>
+        <state line="65" column="6" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.18329178" vertical-offset="588" max-vertical-offset="2055" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-routing/srcs/spray-routing-1.3.1-sources.jar!/spray/routing/RequestContext.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="223" column="56" selection-start="8159" selection-end="8159" vertical-scroll-proportion="0.33291772" vertical-offset="2733" max-vertical-offset="3585">
-          <folding />
-        </state>
+        <state line="223" column="56" selection-start="8159" selection-end="8159" vertical-scroll-proportion="0.33291772" vertical-offset="2733" max-vertical-offset="3585" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-routing/srcs/spray-routing-1.3.1-sources.jar!/spray/routing/HttpService.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="16" selection-start="1256" selection-end="1256" vertical-scroll-proportion="0.27272728" vertical-offset="0" max-vertical-offset="1275" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-actor_2.10/srcs/akka-actor_2.10-2.3.0-sources.jar!/akka/actor/Actor.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="282" column="6" selection-start="10501" selection-end="10501" vertical-scroll-proportion="0.33333334" vertical-offset="3865" max-vertical-offset="8475" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/io.spray/spray-routing/srcs/spray-routing-1.3.1-sources.jar!/spray/routing/directives/RouteDirectives.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="51" selection-start="1613" selection-end="1613" vertical-scroll-proportion="0.58181816" vertical-offset="0" max-vertical-offset="825">
-          <folding />
-        </state>
+        <state line="47" column="6" selection-start="1472" selection-end="1472" vertical-scroll-proportion="0.5511222" vertical-offset="23" max-vertical-offset="825" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Store.scala">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.10.3-sources.jar!/scala/concurrent/Future.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="1" selection-start="1587" selection-end="1587" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="1230">
-          <folding>
-            <element signature="e#22#71#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="92" column="6" selection-start="3394" selection-end="3394" vertical-scroll-proportion="-2.2352216" vertical-offset="2880" max-vertical-offset="10320" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Services.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/WeatherChannel.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="2" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="645">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Entities.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="33" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+        <state line="10" column="0" selection-start="273" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1005">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/HtppService.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="29" selection-start="2022" selection-end="2022" vertical-scroll-proportion="0.36363637" vertical-offset="705" max-vertical-offset="1530">
+        <state line="78" column="1" selection-start="2278" selection-end="2278" vertical-scroll-proportion="0.0" vertical-offset="675" max-vertical-offset="1500">
           <folding>
             <element signature="e#21#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/main-settings-0.13.0.jar!/sbt/Scoped.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="8" selection-start="3271" selection-end="3271" vertical-scroll-proportion="1.4906832" vertical-offset="0" max-vertical-offset="4005" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/build.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="521" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/plugins.sbt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="521" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.sbt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="30" selection-start="320" selection-end="320" vertical-scroll-proportion="0.34548944" vertical-offset="0" max-vertical-offset="521" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/scala_2.10/sbt_0.13/com.typesafe.akka/akka-sbt-plugin/jars/akka-sbt-plugin-2.2.3.jar!/akka/sbt/AkkaKernelPlugin.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="7" selection-start="24" selection-end="24" vertical-scroll-proportion="0.031055901" vertical-offset="0" max-vertical-offset="483" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/Build.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="697" selection-end="697" vertical-scroll-proportion="0.43186182" vertical-offset="0" max-vertical-offset="960">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Utils.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="6" selection-start="668" selection-end="668" vertical-scroll-proportion="0.5514706" vertical-offset="0" max-vertical-offset="570">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Gatekeeper.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="13" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0" vertical-offset="1301" max-vertical-offset="1845">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Services.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="2" selection-start="199" selection-end="199" vertical-scroll-proportion="0.2244389" vertical-offset="0" max-vertical-offset="802">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Channel.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Entities.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="53" selection-start="1171" selection-end="1171" vertical-scroll-proportion="0.0" vertical-offset="263" max-vertical-offset="1125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Processor.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="57" selection-start="1407" selection-end="1437" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1845">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/trigger.data">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="26" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="789">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/antero.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="22" selection-end="22" vertical-scroll-proportion="0.018472906" vertical-offset="0" max-vertical-offset="812">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/MessageBuilder.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="27" selection-start="667" selection-end="667" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Store.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="0" selection-start="1159" selection-end="1159" vertical-scroll-proportion="0.018181818" vertical-offset="480" max-vertical-offset="1905">
+          <folding>
+            <element signature="e#22#78#0" expanded="true" />
           </folding>
         </state>
       </provider>

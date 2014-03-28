@@ -1,8 +1,11 @@
 import sbt._
 import Keys._
 import akka.sbt.AkkaKernelPlugin
-import akka.sbt.AkkaKernelPlugin.{ Dist, outputDirectory, distJvmOptions, additionalLibs}
- 
+import akka.sbt.AkkaKernelPlugin._
+import sbt.ScalaVersion
+import scala.Some
+import scala.Some
+
 object AnteroPlatformKernelBuild extends Build {
   val Organization = "TKTTY"
   val Version      = "0.1"

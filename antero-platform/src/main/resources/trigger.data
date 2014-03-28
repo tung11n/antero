@@ -1,0 +1,1 @@
+{"id":"12345","channelName":"weather","predicateName":"weather.coldAlert","interval":60000,"variables":{"zipCode":"07642","temp":"30"},"userName":"qwerty","templateName":"weather.coldWeather"}

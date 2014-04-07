@@ -1,9 +1,6 @@
 package antero.channel.weather
 
-import antero.channel.Channel
-import antero.processor.EvalContext
-import antero.system.ConfigStore
-import antero.system.{MessageTemplate, Predicate, Result}
+import antero.system._
 import scala.io.Source
 import java.net.URL
 import java.nio.charset.StandardCharsets
@@ -18,25 +15,26 @@ class WeatherChannel(val configStore: ConfigStore) extends Channel {
   val WundergroundUrl = "http://api.wunderground.com/api/"
   val ConditionMethodCall = "/conditions/q/"
   val apiKey = configStore.configMap.get("weatherApiKey") getOrElse ""
+  var eventMap: Map[String, Event] =
+    Map("weather.cold" ->
+      new Event("weather.cold", "Cold Condition Alert", 60000, this, new TemperaturePredicate(this), new TemperatureMessageTemplate))
 
-  def predicates: Map[String, Predicate] =
-    Map("weather.coldAlert" -> new TemperaturePredicate(this))
-
-  def messageTemplates: Map[String, MessageTemplate] = {
-    Map("weather.coldWeather" -> new TemperatureMessageTemplate)
-  }
+  def id = "weather"
+  def name = "Weather Channel"
+  def events = eventMap.values.toList
+  def event(id: String) = eventMap.getOrElse(id, NonEvent)
 }
 
 class TemperaturePredicate(val channel: WeatherChannel) extends Predicate {
 
-  def evaluate(context: EvalContext): Option[Result] = {
+  def evaluate(context: EvaluationContext): Option[Result] = {
     implicit val jsonFormats: Formats = DefaultFormats
 
     val zipCode = context.getVar("zipCode")
     if (zipCode.isEmpty)
       throw new RuntimeException("zip code not available")
 
-    val log = context.log
+    //val log = context.log
     val url = new URL(channel.WundergroundUrl + channel.apiKey + channel.ConditionMethodCall + zipCode + ".json")
 
     val response = Source.fromURL(url, StandardCharsets.UTF_8.name()).mkString
@@ -44,13 +42,13 @@ class TemperaturePredicate(val channel: WeatherChannel) extends Predicate {
     val currentTemp = condition.flatMap(o => Some(o.get("temp_f"))).flatMap(t=>t).getOrElse(JDouble(9999)).extract[Double]
 
     val lowerBound = context.getVar("temp").toDouble
-    log.info(f"URL $url%s. Current temp: $currentTemp%f. Lower bound: $lowerBound%f")
+    //log.info(f"URL $url%s. Current temp: $currentTemp%f. Lower bound: $lowerBound%f")
 
     if (lowerBound > currentTemp) Some(new Result(currentTemp)) else None
   }
 }
 
-class TemperatureMessageTemplate extends MessageTemplate {
+class TemperatureMessageTemplate extends MessageTemplate[String] {
 
   def output(args: Map[String, String], result: Result): String = {
 

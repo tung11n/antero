@@ -37,7 +37,7 @@ class Processor extends Actor with ActorLogging {
     case Ready(value) =>
 
     case RegisterTrigger(trigger) =>
-      val b = bucket(trigger.interval)
+      val b = bucket(trigger.event.interval)
       supervisors.get(b) match {
         case Some(supervisor) =>
           supervisor ! RegisterTrigger(trigger)
@@ -107,10 +107,9 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
   }
 
   def evaluate(trigger: Trigger): Option[Result] = {
-    val evalContext = new EvalContext(context.dispatcher, log, trigger.variables)
-
     try {
-      trigger.predicate.evaluate(evalContext)
+      val evaluationContext = new SimpleEvaluationContext(context.dispatcher, log, trigger.variables)
+      trigger.event.predicate.evaluate(evaluationContext)
     } catch {
       case e:Exception =>
         log.error(e, "error")
@@ -122,8 +121,10 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
 /**
  *
  */
-class EvalContext(val executionContext: ExecutionContext, val log: LoggingAdapter, val vars: Map[String,String]) {
-  def getVar(varName: String): String = {
-    vars getOrElse (varName, "")
+class SimpleEvaluationContext(val executionContext: ExecutionContext,
+                              val log: LoggingAdapter,
+                              val vars: Map[String,String]) extends EvaluationContext {
+  def getVar[A](varName: String): String = {
+    vars.getOrElse(varName, "")
   }
 }

@@ -63,11 +63,13 @@ class RequestHandler(val store: ActorRef, val log: LoggingAdapter) extends HttpS
           }
         }
       } ~
+      /*
       pathPrefix("channel") {
         path(Segment) { channel =>
           complete(new User((channel)))
         }
       } ~
+      */
       path("user" / Segment) { userName =>
         get {
           log.info("Getting user info for user " + userName)

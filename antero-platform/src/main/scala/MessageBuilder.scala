@@ -22,10 +22,6 @@ class MessageBuilder extends Actor with ActorLogging {
       sender ! Acknowledge("messageBuilder")
 
     case Build(result, trigger) =>
-      buildMessage(trigger.template, result, trigger.variables) pipeTo sender
-  }
-
-  def buildMessage(template: MessageTemplate, result: Option[Result], args: Map[String,String]): Future[Option[String]] = {
-    Future { result map { r => template.output(args, r) } }
+      Future { result map { r => trigger.event.message.output(trigger.variables, r) } } pipeTo sender
   }
 }

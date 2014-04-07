@@ -39,7 +39,7 @@ class Notifier extends Actor with ActorLogging {
       user.getDevices.foreach {device =>
         Future {
           try {
-            message foreach {m => send(device.registrationId, user.userName, m)}
+            message foreach {m => send(device.proprietaryId, user.userName, m)}
           } catch {
             case e:Exception => log.error(e, "")
           }

@@ -1,1 +1,1 @@
-{"id":"12345","eventId":"weather.cold","userName":"qwerty","variables":{"zipCode":"07642","temp":"30"},"active":"true"}
+{"id":"12345","eventId":"weather.cold","userName":"qwerty","variables":{"zipCode":"07642","temp":"30"},"active":true}

@@ -17,16 +17,21 @@ object WeatherApi {
 /**
  * Created by tungtt on 3/15/14.
  */
-class WeatherChannel(val configStore: ConfigStore) extends Channel {
+class WeatherChannel extends Channel {
+  var configStore: ConfigStore = _
+  var eventMap: Map[String, Event[String]] = _
 
-  var eventMap: Map[String, Event[String]] =
-          Map("weather.cold" ->
-              new Event("weather.cold",
-                        "Cold Condition Alert",
-                        60000,
-                        this,
-                        TemperaturePredicate(configStore),
-                        "Current temperature at zipcode $zipCode is $$, lower than $temp"))
+  def setConfig(configStore: ConfigStore): Unit = {
+    this.configStore = configStore
+    eventMap =
+      Map("weather.cold" ->
+        new Event("weather.cold",
+        "Cold Condition Alert",
+        60000,
+        this,
+        TemperaturePredicate(configStore),
+        "Current temperature at zipcode $zipCode is $$, lower than $temp"))
+  }
 
   def id = "weather"
   def name = "Weather Channel"

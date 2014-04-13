@@ -56,6 +56,7 @@ abstract class MessageTemplate[A] {
  * Channel makes available a collection of events to which users can subscribe
  */
 abstract class Channel extends Identifiable {
+  def setConfig(configStore: ConfigStore): Unit
   def name: String
   def events: Seq[Event[AnyRef]]
   def event(id: String): Event[AnyRef]

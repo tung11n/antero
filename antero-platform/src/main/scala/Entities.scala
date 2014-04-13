@@ -1,6 +1,8 @@
 package antero.system
 
 import scala.reflect.ClassTag
+import scala.reflect.runtime.universe._
+import akka.event.LoggingAdapter
 
 /**
  * Created by tungtt on 2/8/14.
@@ -32,7 +34,8 @@ class Result(val payload: Any) {
  * Sandbox specific environment for evaluation of predicates
  */
 trait EvaluationContext {
-  def getVar[A](varName: String): String
+  def log: LoggingAdapter
+  def getVar[A: TypeTag](varName: String): Option[A]
 }
 
 /**
@@ -46,7 +49,7 @@ abstract class Predicate {
  * Message sent to user when an event is triggered
  */
 abstract class MessageTemplate[A] {
-  def output(args: Map[String, String], result: Result): A
+  def output(template: A, args: Map[String, String], result: Result): String
 }
 
 /**
@@ -54,8 +57,9 @@ abstract class MessageTemplate[A] {
  */
 abstract class Channel extends Identifiable {
   def name: String
-  def events: Seq[Event]
-  def event(id: String): Event
+  def events: Seq[Event[AnyRef]]
+  def event(id: String): Event[AnyRef]
+  def render(event: Event[AnyRef], variables: Map[String, String], result: Result): Option[String]
 }
 
 /**
@@ -68,14 +72,14 @@ abstract class Channel extends Identifiable {
  * @param predicate
  * @param message
  */
-class Event(val id: String,
+class Event[+A](val id: String,
             val name: String,
             val interval: Int,
             val channel: Channel,
             val predicate: Predicate,
-            val message: MessageTemplate[String]) extends Identifiable
+            val message: A) extends Identifiable
 
-case object NonEvent extends Event("$0", "None-event", 0xFFFFF, null, null, null)
+case object NonEvent extends Event("$0", "Non-event", 0xFFFFF, null, null, null)
 /**
  * A terminal device to which messages are sent
  *
@@ -117,7 +121,7 @@ case object DefaultUser extends User("$0","$system")
  * @param user
  */
 class Trigger(val id: String,
-              val event: Event,
+              val event: Event[AnyRef],
               val variables: Map[String, String],
               val user: User) extends Identifiable
 

@@ -6,7 +6,7 @@ import antero.system._
 import antero.system.Acknowledge
 import antero.system.Config
 import antero.system.Ready
-import com.google.android.gcm.server.Sender
+import com.google.android.gcm.server.{Message, Sender}
 import scala.concurrent.Future
 import java.io.IOException
 
@@ -15,8 +15,6 @@ import java.io.IOException
  * Created by tungtt on 2/17/14.
  */
 class Notifier extends Actor with ActorLogging {
-  val MessageRecipient = "antero.message.RECIPIENT"
-  val MessagePayload = "antero.message.PAYLOAD"
 
   var gcmSender: Sender = _
   var registrationId: String = _
@@ -34,12 +32,12 @@ class Notifier extends Actor with ActorLogging {
 
     case Ready(value) =>
 
-    case Notify(user,message) =>
+    case Notify(user, message) =>
       import context.dispatcher
       user.getDevices.foreach {device =>
         Future {
           try {
-            message foreach {m => send(device.proprietaryId, user.userName, m)}
+            message foreach {m => send(device.proprietaryId, m)}
           } catch {
             case e:Exception => log.error(e, "")
           }
@@ -48,17 +46,16 @@ class Notifier extends Actor with ActorLogging {
   }
 
   @throws(classOf[IOException])
-  def send(registrationId: String, recipient: String, msg: String) = {
-    val message: com.google.android.gcm.server.Message =
-      new com.google.android.gcm.server.Message.Builder().
-        addData(MessageRecipient, recipient).
-        addData(MessagePayload, msg).
-        build()
+  def send(registrationId: String, msg: Map[String, String]) = {
+    val messageBuilder = new Message.Builder
 
-    val result = gcmSender.send(message, registrationId, retry)
+    msg.foreach {case (k, v) => messageBuilder.addData(k, v)}
+
+    val result = gcmSender.send(messageBuilder.build, registrationId, retry)
     if (result.getMessageId == null) {
       throw new RuntimeException(result.getErrorCodeName)
     }
+
     result.getMessageId
   }
 }

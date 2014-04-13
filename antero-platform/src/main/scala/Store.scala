@@ -7,6 +7,7 @@ import antero.system.Config
 import antero.system.Ready
 import antero.system.Retrieve
 import antero.system.User
+import antero.utils.Utils._
 import scala.concurrent.Future
 import org.json4s.{DefaultFormats, Formats}
 import org.json4s.native.JsonMethods._
@@ -89,7 +90,7 @@ class ObjectFactory[A <: Builder](objectFile: String)(implicit m: Manifest[A]) e
   def receive: Actor.Receive = {
     case Load(receipt) =>
       implicit val jsonFormats: Formats = DefaultFormats
-      objects = Utils.loadFile(objectFile) {line =>
+      objects = loadFile(objectFile) {line =>
         val obj = parse(line).extract[A]
         (obj.id, obj)
       }
@@ -108,12 +109,12 @@ class DeviceFactory(objectFile: String, val storeContext: StoreContext) extends 
   override def receive = {
     case Get(id) =>
       Future {
-        objects.get(id).map[Device](d => new Device(d.id, d.name, d.userId, d.proprietaryId))
+        objects.get(id).map[Device](d => new Device(d.id, d.name, d.userName, d.proprietaryId))
       } pipeTo sender
 
     case Load(receipt) =>
       super.receive.apply(Load(receipt))
-      objects.values.map(d => new Device(d.id, d.name, d.userId, d.proprietaryId)).foreach(d => storeContext.userFactory ! HasDevice(d))
+      objects.values.map(d => new Device(d.id, d.name, d.userName, d.proprietaryId)).foreach(d => storeContext.userFactory ! HasDevice(d))
 
     case e: FactoryEvent => super.receive.apply(e)
   }
@@ -217,7 +218,7 @@ class TriggerFactory(objectFile: String, val s: StoreContext) extends ObjectFact
     implicit val timeout = Timeout(5, TimeUnit.SECONDS)
 
     for {
-      event <- ask(storeContext.channelFactory, Get(t.eventId)).mapTo[Event]
+      event <- ask(storeContext.channelFactory, Get(t.eventId)).mapTo[Event[AnyRef]]
       user <- ask(storeContext.userFactory, Get(t.userName)).mapTo[User]
     } yield{
       new Trigger(t.id, event, t.variables, user)
@@ -244,7 +245,6 @@ case class TriggerBuilder(id: String,
                           eventId: String,
                           userName: String,
                           variables: Map[String, String],
-                          messageName: String,
                           active: Boolean) extends Builder
 
 case class UserBuilder(id: String,
@@ -252,7 +252,7 @@ case class UserBuilder(id: String,
 
 case class DeviceBuilder(id: String,
                          name: String,
-                         userId: String,
+                         userName: String,
                          proprietaryId: String) extends Builder
 
 /**

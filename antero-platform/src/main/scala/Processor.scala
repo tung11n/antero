@@ -3,6 +3,7 @@ package antero.processor
 import antero.system._
 import antero.system.Acknowledge
 import antero.system.Config
+import antero.utils.Conversion._
 import akka.actor.{ActorLogging, ActorRef, Props, Actor}
 import scala.concurrent.duration.Duration
 import java.util.concurrent.TimeUnit
@@ -12,6 +13,8 @@ import akka.util.Timeout
 import scala.util.{Try, Success, Failure}
 import scala.concurrent.{ExecutionContext, Future}
 import akka.event.LoggingAdapter
+import scala.reflect.runtime.universe._
+
 
 /**
  * Created by tungtt on 2/9/14.
@@ -51,6 +54,8 @@ class Processor extends Actor with ActorLogging {
   private def bucket(interval: Int): Int = (interval / bucketSize + 1) * bucketSize
 }
 
+case class Evaluate(trigger: Trigger)
+case object Repeat
 /**
  *
  * @param interval
@@ -70,12 +75,12 @@ class Supervisor(notifier: ActorRef, messageBuilder: ActorRef, interval: Int, nu
       Duration.create(1, TimeUnit.MILLISECONDS),
       Duration.create(interval, TimeUnit.MILLISECONDS),
       self,
-      Repeat("start")
+      Repeat
     )(context.system.dispatcher)
   }
 
   def receive: Actor.Receive = {
-    case Repeat("start") =>
+    case Repeat =>
       tobeEvaluated foreach {trigger => router ! Evaluate(trigger)}
 
     case RegisterTrigger(trigger) =>
@@ -84,7 +89,7 @@ class Supervisor(notifier: ActorRef, messageBuilder: ActorRef, interval: Int, nu
 }
 
 /**
- *
+ * Worker actor
  */
 class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with ActorLogging {
   implicit val timeout = Timeout(5, TimeUnit.SECONDS)
@@ -96,7 +101,7 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
 
       val receipt = for {
         result <- Future { evaluate(trigger) }
-        message <- ask(messageBuilder, Build(result, trigger)).mapTo[Option[String]]
+        message <- ask(messageBuilder, Build(result, trigger)).mapTo[Option[Map[String, String]]]
         notified <- ask(notifier, Notify(trigger.user, message))
       } yield (notified)
 
@@ -108,7 +113,7 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
 
   def evaluate(trigger: Trigger): Option[Result] = {
     try {
-      val evaluationContext = new SimpleEvaluationContext(context.dispatcher, log, trigger.variables)
+      val evaluationContext = new SimpleEvaluationContext(log, trigger.variables)
       trigger.event.predicate.evaluate(evaluationContext)
     } catch {
       case e:Exception =>
@@ -119,12 +124,10 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
 }
 
 /**
- *
+ * A simple evaluation context
  */
-class SimpleEvaluationContext(val executionContext: ExecutionContext,
-                              val log: LoggingAdapter,
+class SimpleEvaluationContext(val log: LoggingAdapter,
                               val vars: Map[String,String]) extends EvaluationContext {
-  def getVar[A](varName: String): String = {
-    vars.getOrElse(varName, "")
-  }
+
+  def getVar[A: TypeTag](varName: String): Option[A] = convertTo(vars)(varName)
 }

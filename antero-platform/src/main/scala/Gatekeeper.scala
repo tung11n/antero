@@ -8,6 +8,7 @@ import antero.message.MessageBuilder
 import antero.notification.Notifier
 import antero.processor.Processor
 import antero.store.{DataType, Store}
+import antero.utils.Utils._
 import scala.concurrent.Future
 
 /**
@@ -50,7 +51,7 @@ object ConfigStore {
 
   def apply(fileName: String) = {
     val configStore = new ConfigStore()
-    configStore.configMap = Utils.loadFile(fileName) { line =>
+    configStore.configMap = loadFile(fileName) { line =>
       val s = line.split("=")
       if (s.size == 2) (s(0).trim, s(1).trim) else (s(0).trim,"")
     }
@@ -109,7 +110,7 @@ class Gatekeeper(fileName: String) extends Actor with ActorLogging {
 
 case class Ready(value: String)
 
-case class Notify(user: User, message: Option[String])
+case class Notify(user: User, message: Option[Map[String,String]])
 
 case class Acknowledge(value: String)
 
@@ -119,8 +120,4 @@ case class Build(result: Option[Result], trigger: Trigger)
 
 case class Retrieve(dataType: DataType)
 
-case class Evaluate(trigger: Trigger)
-
 case class RegisterTrigger(trigger: Trigger)
-
-case class Repeat(value: String)

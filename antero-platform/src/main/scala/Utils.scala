@@ -28,7 +28,7 @@ object Utils {
    * Implicits
    */
   implicit object SimpleMessageTemplate extends MessageTemplate[String] {
-    val Sub = """\$(result|\w+)""".r
+    val Sub = """\$(\$|\w+)""".r
 
     def output(template: String, args: Map[String, String], result: Result) = {
       Sub.replaceAllIn(template, m => if (m.group(1) == "$") result.toString else args.get(m.group(1)).getOrElse(""))

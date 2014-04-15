@@ -27,6 +27,7 @@ class Store extends Actor with ActorLogging {
   private var processor: ActorRef = _
   private var factories: Map[String, ActorRef] = _
   private var countdown: Countdown = _
+  private var gatekeeper: ActorRef  = _
 
   def receive: Actor.Receive = {
 
@@ -37,7 +38,7 @@ class Store extends Actor with ActorLogging {
       val channelFactory = context.actorOf(ChannelFactory.props("config/channel.data", configStore))
       val deviceFactory = context.actorOf(DeviceFactory.props("config/device.data"))
       val userFactory = context.actorOf(UserFactory.props("config/user.data"))
-      val triggerFactory = context.actorOf(TriggerFactory.props("config/trigger.data"))
+      val triggerFactory = context.actorOf(TriggerFactory.props("config/trigger.data", configStore))
 
       factories = Map("channel" -> channelFactory,
                       "trigger" -> triggerFactory,
@@ -46,11 +47,12 @@ class Store extends Actor with ActorLogging {
 
       countdown = Countdown(factories.size)
       factories.values.foreach { factory => factory ! Load(factories) }
+      gatekeeper = sender
 
     case LoadDone(receipt) =>
       countdown.inc
       if (countdown.reset) {
-        sender ! Acknowledge("store")
+        gatekeeper ! Acknowledge("store")
       }
 
     case Ready(value) =>
@@ -58,6 +60,7 @@ class Store extends Actor with ActorLogging {
 
     case HasTrigger(trigger) =>
       import context.dispatcher
+      log.info(s"Has trigger $trigger")
       trigger foreach {t => processor ! RegisterTrigger(t) }
 
     case Retrieve(dataType) =>
@@ -86,13 +89,13 @@ class ObjectFactory[A <: Builder](objectFile: String)(implicit m: Manifest[A]) e
   var objects: Map[String, A] = _
 
   def receive: Actor.Receive = {
-    case Load(receipt) =>
+    case Load(f) =>
       implicit val jsonFormats: Formats = DefaultFormats
       objects = loadFile(objectFile) {line =>
         val obj = parse(line).extract[A]
         (obj.id, obj)
       }
-      sender ! LoadDone("done")
+      sender ! LoadDone(this.getClass.getName)
   }
 }
 
@@ -102,7 +105,7 @@ class ObjectFactory[A <: Builder](objectFile: String)(implicit m: Manifest[A]) e
  * @param objectFile: device file
  */
 class DeviceFactory(objectFile: String) extends ObjectFactory[DeviceBuilder](objectFile) {
-  import context.dispatcher
+  implicit val ec = context.dispatcher
   private var factories: Map[String, ActorRef] = _
 
   override def receive = {
@@ -133,12 +136,17 @@ object DeviceFactory {
  */
 class UserFactory(objectFile: String) extends ObjectFactory[UserBuilder](objectFile) {
   var users: Map[String, User] = _
-  import context.dispatcher
+  implicit val ec = context.dispatcher
 
   override def receive = {
 
     case Get(id) =>
-      Future { users.get(id) } pipeTo sender
+      val customer = sender
+      Future {
+        val e = users.get(id)
+        log.info(s"Get user $e $customer")
+        e
+      } pipeTo customer
 
     case HasDevice(device) =>
       users.get(device.userId) foreach {u => u.addDevice(device)}
@@ -162,13 +170,16 @@ object UserFactory {
  */
 class ChannelFactory(objectFile: String, val configStore: ConfigStore) extends ObjectFactory[ChannelBuilder](objectFile) {
   var channels: Map[String, Channel] = _
-  import context.dispatcher
+  implicit val ec = context.dispatcher
 
   override def receive = {
     case Get(id) =>
+      val customer = sender
       Future {
-        channels.get(extractChannelId(id)).map(c => c.event(id))
-      } pipeTo sender
+        val e = channels.get(extractChannelId(id)).map(c => c.event(id))
+        log.info(s"Get event $e $customer")
+        e
+      } pipeTo customer
 
     case Load(receipt) =>
       super.receive.apply(Load(receipt))
@@ -193,20 +204,35 @@ object ChannelFactory {
  *
  * @param objectFile: trigger file
  */
-class TriggerFactory(objectFile: String) extends ObjectFactory[TriggerBuilder](objectFile) {
-  import context.dispatcher
+class TriggerFactory(objectFile: String, val configStore: ConfigStore) extends ObjectFactory[TriggerBuilder](objectFile) {
+  implicit val ec = context.dispatcher
   private var factories: Map[String, ActorRef] = _
 
   override def receive = {
+    /*
     case Get(id) =>
       objects.get(id).foreach {b =>
         createTrigger(b) foreach {t => t pipeTo sender }
       }
-
+*/
     case GetAll =>
-      objects.values foreach {b =>
-        createTrigger(b) foreach {t => sender ! HasTrigger(t) }
+
+      for {
+        b <- objects.values
+        trigger <- createTrigger(b)
+        p <- configStore.components.get("processor")
+      } yield {
+        trigger.foreach(t => t.foreach(tt => p ! RegisterTrigger(tt)))
       }
+      /*
+      objects.values foreach {b =>
+        createTrigger(b) foreach {trigger =>
+          configStore.components.get("processor").foreach {p =>
+            log.info(s"Registering $p")
+            trigger.foreach(t => p ! RegisterTrigger(t))
+          }
+        }
+      }*/
 
     case Load(f) =>
       super.receive.apply(Load(f))
@@ -215,35 +241,49 @@ class TriggerFactory(objectFile: String) extends ObjectFactory[TriggerBuilder](o
     case e: FactoryEvent =>
       super.receive.apply(e)
   }
-/*
-  def resolve(id: String): Future[Trigger] = {
-    objects.get(id) match {
-      case Some(t) =>
-        createTrigger(t)
-      case None =>
-        Future { PerpetuallyFalseTrigger }
-    }
-  }
-*/
-  private def createTrigger(t: TriggerBuilder): Seq[Future[Trigger]] = {
+
+  private def createTrigger(t: TriggerBuilder): Seq[Future[Option[Trigger]]] = {
     implicit val timeout = Timeout(5, TimeUnit.SECONDS)
 
+    def getEvent = {
+      factories.get("channel").map(c => ask(c, Get(t.eventId)).mapTo[Option[Event[AnyRef]]]).toSeq
+    }
+
+    def getUser = {
+      factories.get("user").map(u => ask(u, Get(t.userName)).mapTo[Option[User]]).toSeq
+    }
+
     for {
-      event <- factories.get("channel").map(c => ask(c, Get(t.eventId)).mapTo[Event[AnyRef]]).toSeq
-      user <- factories.get("user").map(u => ask(u, Get(t.userName)).mapTo[User]).toSeq
+      event <- getEvent
+      user <- getUser
     } yield build(event, user, t)
   }
 
-  private def build(event: Future[Event[AnyRef]], user: Future[User], trigger: TriggerBuilder): Future[Trigger] = {
+  private def build(event: Future[Option[Event[AnyRef]]], user: Future[Option[User]], trigger: TriggerBuilder): Future[Option[Trigger]] = {
+
     for {
       e <- event
       u <- user
-    } yield new Trigger(trigger.id, e, trigger.variables, u)
+    } yield {
+      log.info(s"Assembling trigger  e=$e u=$u id=$trigger.id")
+      for {
+        ee <- e
+        uu <- u
+      } yield new Trigger(trigger.id, ee, trigger.variables, uu)
+    }
+    /*
+    for {
+      e <- event
+      u <- user
+      ee <- e
+      uu <- u
+    } yield new Trigger(trigger.id, ee, trigger.variables, uu)
+    */
   }
 }
 
 object TriggerFactory {
-  def props(objectFile: String) = Props(new TriggerFactory(objectFile))
+  def props(objectFile: String, configStore: ConfigStore) = Props(new TriggerFactory(objectFile, configStore))
 }
 
 /**

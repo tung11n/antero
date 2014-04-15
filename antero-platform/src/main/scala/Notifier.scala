@@ -34,10 +34,20 @@ class Notifier extends Actor with ActorLogging {
 
     case Notify(user, message) =>
       import context.dispatcher
+      log.info(s"Notifying user $user")
       user.getDevices.foreach {device =>
         Future {
           try {
-            message foreach {m => send(device.proprietaryId, m)}
+            message match {
+              case Some(m) =>
+                send(device.proprietaryId, m)
+              case None =>
+            }
+            /*
+            message foreach {m =>
+              log.info(s"Sending message $m to $device")
+              send(device.proprietaryId, m)
+            }*/
           } catch {
             case e:Exception => log.error(e, "")
           }
@@ -50,6 +60,8 @@ class Notifier extends Actor with ActorLogging {
     val messageBuilder = new Message.Builder
 
     msg.foreach {case (k, v) => messageBuilder.addData(k, v)}
+
+    msg.get("antero.message.PAYLOAD") foreach {m => log.info(s"Sending message $m")}
 
     val result = gcmSender.send(messageBuilder.build, registrationId, retry)
     if (result.getMessageId == null) {

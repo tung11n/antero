@@ -24,14 +24,15 @@ class MessageBuilder extends Actor with ActorLogging {
       sender ! Acknowledge("messageBuilder")
 
     case Build(result, trigger) =>
-      Future {
-        result map { r =>
-          trigger.event.channel.render(trigger.event, trigger.variables, r) foreach { rendered =>
-          Map(
-            MessageRecipient -> trigger.user.userName,
-            MessagePayload -> rendered
-          ) }
+      result map { r =>
+        trigger.event.channel.render(trigger.event, trigger.variables, r) foreach { rendered =>
+          Future {
+            Some(Map(
+              MessageRecipient -> trigger.user.userName,
+              MessagePayload -> rendered
+            ))
+          } pipeTo sender
         }
-      } pipeTo sender
+      }
   }
 }

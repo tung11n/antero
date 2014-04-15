@@ -35,11 +35,12 @@ class Processor extends Actor with ActorLogging {
       numberOfWorkers = configStore.getIntSetting("processor.workers", numberOfWorkers)
       bucketSize = configStore.getIntSetting("processor.bucketSize", bucketSize)
 
-      sender ! Acknowledge("store")
+      sender ! Acknowledge("processor")
 
     case Ready(value) =>
 
     case RegisterTrigger(trigger) =>
+      log.info(s"Registering $trigger")
       val b = bucket(trigger.event.interval)
       supervisors.get(b) match {
         case Some(supervisor) =>

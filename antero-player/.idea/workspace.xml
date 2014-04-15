@@ -74,10 +74,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PlayActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="PlayActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/antero/player/messaging/PlayActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="148" column="47" selection-start="5123" selection-end="5123" vertical-scroll-proportion="0.19030303" vertical-offset="1688" max-vertical-offset="3900">
+            <state line="155" column="62" selection-start="5479" selection-end="5479" vertical-scroll-proportion="0.0" vertical-offset="1928" max-vertical-offset="3900">
               <folding />
             </state>
           </provider>
@@ -95,7 +95,7 @@
       <file leaf-file-name="ProximityService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/antero/player/tag/ProximityService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="159" column="9" selection-start="6061" selection-end="6061" vertical-scroll-proportion="0.0" vertical-offset="2385" max-vertical-offset="3735">
+            <state line="159" column="9" selection-start="6061" selection-end="6061" vertical-scroll-proportion="0.0" vertical-offset="1050" max-vertical-offset="3495">
               <folding />
             </state>
           </provider>
@@ -119,10 +119,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GcmIntentService.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GcmIntentService.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/antero/player/messaging/GcmIntentService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="70" selection-start="845" selection-end="845" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="1875">
+            <state line="64" column="74" selection-start="2751" selection-end="2751" vertical-scroll-proportion="0.7706422" vertical-offset="405" max-vertical-offset="1740">
               <folding />
             </state>
           </provider>
@@ -429,7 +429,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32921812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3282532" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -441,31 +441,6 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32921812" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32921812" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32921812" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32921812" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32921812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23541667" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32921812" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USERS">
@@ -614,7 +589,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values/version.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="19" selection-start="70" selection-end="70" vertical-scroll-proportion="0.07263923" vertical-offset="0" max-vertical-offset="413" />
+        <state line="2" column="19" selection-start="70" selection-end="70" vertical-scroll-proportion="0.07263923" vertical-offset="0" max-vertical-offset="413">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="jar:///usr/local/android-sdk-macosx/platforms/android-19/android.jar!/android/content/ComponentName.class">
@@ -644,7 +621,9 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="37" selection-start="577" selection-end="577" vertical-scroll-proportion="-4.0384617" vertical-offset="0" max-vertical-offset="390" />
+        <state line="14" column="37" selection-start="577" selection-end="577" vertical-scroll-proportion="-4.0384617" vertical-offset="0" max-vertical-offset="390">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="jar:///usr/local/android-sdk-macosx/platforms/android-19/android.jar!/android/content/ContextWrapper.class">
@@ -654,7 +633,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="40" selection-start="217" selection-end="217" vertical-scroll-proportion="0.18159807" vertical-offset="0" max-vertical-offset="413" />
+        <state line="5" column="40" selection-start="217" selection-end="217" vertical-scroll-proportion="0.18159807" vertical-offset="0" max-vertical-offset="413">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/antero/player/messaging/GcmBroadcastReceiver.java">
@@ -674,28 +655,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/antero/player/messaging/GcmIntentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="70" selection-start="845" selection-end="845" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/antero/player/tag/StorageService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="6" selection-start="441" selection-end="441" vertical-scroll-proportion="0.42225394" vertical-offset="79" max-vertical-offset="780" />
+        <state line="27" column="6" selection-start="441" selection-end="441" vertical-scroll-proportion="0.42225394" vertical-offset="79" max-vertical-offset="780">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/antero/player/ui/TagListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="0" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="2100">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/antero/player/tag/ProximityService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="9" selection-start="6061" selection-end="6061" vertical-scroll-proportion="0.0" vertical-offset="2205" max-vertical-offset="3630">
           <folding />
         </state>
       </provider>
@@ -716,7 +685,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/antero/player/messaging/PlayActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="47" selection-start="5123" selection-end="5123" vertical-scroll-proportion="0.19030303" vertical-offset="1688" max-vertical-offset="3900">
+        <state line="155" column="62" selection-start="5479" selection-end="5479" vertical-scroll-proportion="0.0" vertical-offset="1928" max-vertical-offset="3900">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/antero/player/tag/ProximityService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="159" column="9" selection-start="6061" selection-end="6061" vertical-scroll-proportion="0.0" vertical-offset="1050" max-vertical-offset="3495">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/antero/player/messaging/GcmIntentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="74" selection-start="2751" selection-end="2751" vertical-scroll-proportion="0.7706422" vertical-offset="405" max-vertical-offset="1740">
           <folding />
         </state>
       </provider>

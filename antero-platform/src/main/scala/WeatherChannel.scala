@@ -40,7 +40,10 @@ class WeatherChannel extends Channel {
 
   def render(event: Event[AnyRef], variables: Map[String, String], result: Result): Option[String] = {
     event.message match {
-      case message: String => Some(renderMessage(message, variables, result))
+      case message: String =>
+        val m = Some(renderMessage(message, variables, result))
+        println(s"MMM $m")
+        m
       case _ => None // no message template
     }
   }
@@ -53,7 +56,8 @@ class TemperaturePredicate(val configStore: ConfigStore) extends Predicate {
 
     implicit val jsonFormats: Formats = DefaultFormats
 
-    val zipCode = context.getVar[String]("zipCode")
+    val zipCode = context.getVar[String]("zipCode") getOrElse ""
+
     if (zipCode.isEmpty)
       throw new RuntimeException("zip code not available")
 

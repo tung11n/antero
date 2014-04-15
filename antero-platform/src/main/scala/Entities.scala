@@ -28,6 +28,8 @@ class Result(val payload: Any) {
       case _ => throw new RuntimeException("Invalid type " + payload.getClass)
     }
   }
+
+  override def toString = payload.toString
 }
 
 /**
@@ -91,7 +93,9 @@ case object NonEvent extends Event("$0", "Non-event", 0xFFFFF, null, null, null)
 class Device(val id: String,
              val name: String,
              val userId: String,
-             val proprietaryId: String) extends Identifiable
+             val proprietaryId: String) extends Identifiable {
+  override def toString = name
+}
 
 /**
  * Represents an user and devices registered under this user

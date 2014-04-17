@@ -16,7 +16,6 @@ import org.json4s.native.JsonMethods._
 import scala.Predef._
 import akka.util.Timeout
 import java.util.concurrent.TimeUnit
-import scala.Some
 
 
 /**
@@ -143,9 +142,7 @@ class UserFactory(objectFile: String) extends ObjectFactory[UserBuilder](objectF
     case Get(id) =>
       val customer = sender
       Future {
-        val e = users.get(id)
-        log.info(s"Get user $e $customer")
-        e
+        users.get(id)
       } pipeTo customer
 
     case HasDevice(device) =>
@@ -176,9 +173,7 @@ class ChannelFactory(objectFile: String, val configStore: ConfigStore) extends O
     case Get(id) =>
       val customer = sender
       Future {
-        val e = channels.get(extractChannelId(id)).map(c => c.event(id))
-        log.info(s"Get event $e $customer")
-        e
+        channels.get(extractChannelId(id)).map(c => c.event(id))
       } pipeTo customer
 
     case Load(receipt) =>
@@ -222,17 +217,8 @@ class TriggerFactory(objectFile: String, val configStore: ConfigStore) extends O
         trigger <- createTrigger(b)
         p <- configStore.components.get("processor")
       } yield {
-        trigger.foreach(t => t.foreach(tt => p ! RegisterTrigger(tt)))
+        trigger.foreach(t => t.foreach (tt => p ! RegisterTrigger(tt)))
       }
-      /*
-      objects.values foreach {b =>
-        createTrigger(b) foreach {trigger =>
-          configStore.components.get("processor").foreach {p =>
-            log.info(s"Registering $p")
-            trigger.foreach(t => p ! RegisterTrigger(t))
-          }
-        }
-      }*/
 
     case Load(f) =>
       super.receive.apply(Load(f))
@@ -271,14 +257,6 @@ class TriggerFactory(objectFile: String, val configStore: ConfigStore) extends O
         uu <- u
       } yield new Trigger(trigger.id, ee, trigger.variables, uu)
     }
-    /*
-    for {
-      e <- event
-      u <- user
-      ee <- e
-      uu <- u
-    } yield new Trigger(trigger.id, ee, trigger.variables, uu)
-    */
   }
 }
 
@@ -302,6 +280,11 @@ case class TriggerBuilder(id: String,
                           userName: String,
                           variables: Map[String, String],
                           active: Boolean) extends Builder
+
+case class TriggerBuilder2(id: String,
+                           event: Event[AnyRef],
+                           userName: String,
+                           variables: Map[String, String]) extends Builder
 
 case class UserBuilder(id: String,
                        userName: String) extends Builder

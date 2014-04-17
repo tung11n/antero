@@ -41,9 +41,8 @@ class WeatherChannel extends Channel {
   def render(event: Event[AnyRef], variables: Map[String, String], result: Result): Option[String] = {
     event.message match {
       case message: String =>
-        val m = Some(renderMessage(message, variables, result))
-        println(s"MMM $m")
-        m
+        Some(renderMessage(message, variables, result))
+
       case _ => None // no message template
     }
   }

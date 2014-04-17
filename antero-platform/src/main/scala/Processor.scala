@@ -93,7 +93,7 @@ class Supervisor(notifier: ActorRef, messageBuilder: ActorRef, interval: Int, nu
  * Worker actor
  */
 class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with ActorLogging {
-  implicit val timeout = Timeout(5, TimeUnit.SECONDS)
+  implicit val timeout = Timeout(10, TimeUnit.SECONDS)
   import context.dispatcher
 
   def receive: Actor.Receive = {

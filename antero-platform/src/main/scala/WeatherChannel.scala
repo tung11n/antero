@@ -1,6 +1,7 @@
 package antero.channel
 
 import antero.system._
+import antero.system.Result
 import antero.utils.Utils._
 import scala.io.Source
 import java.net.URL
@@ -8,8 +9,10 @@ import java.nio.charset.StandardCharsets
 import org.json4s.native.JsonMethods._
 import org.json4s._
 import scala.Some
+import scala.Predef._
+import scala.Some
 
-object WeatherApi {
+trait WeatherApi {
   val WundergroundUrl = "http://api.wunderground.com/api/"
   val ConditionMethodCall = "/conditions/q/"
 }
@@ -48,27 +51,27 @@ class WeatherChannel extends Channel {
   }
 }
 
-class TemperaturePredicate(val configStore: ConfigStore) extends Predicate {
+class TemperaturePredicate(val configStore: ConfigStore) extends Predicate with WeatherApi {
   val apiKey = configStore.configMap.get("weatherApiKey") getOrElse ""
 
   def evaluate(context: EvaluationContext): Option[Result] = {
-
     implicit val jsonFormats: Formats = DefaultFormats
 
-    val zipCode = context.getVar[String]("zipCode") getOrElse ""
+    def cal(zipCode: String, temp: Double): Option[Result] = {
+      val url = new URL(WundergroundUrl + apiKey + ConditionMethodCall + zipCode + ".json")
 
-    if (zipCode.isEmpty)
-      throw new RuntimeException("zip code not available")
+      val response = Source.fromURL(url, StandardCharsets.UTF_8.name()).mkString
+      val condition = parse(response).extract[Map[String, Map[String, JValue]]].get("current_observation")
 
-    //val log = context.log
-    val url = new URL(WeatherApi.WundergroundUrl + apiKey + WeatherApi.ConditionMethodCall + zipCode + ".json")
+      condition.flatMap(_.get("temp_f")).map(_.extract[Double]).filter(_ < temp).map(Result)
+    }
 
-    val response = Source.fromURL(url, StandardCharsets.UTF_8.name()).mkString
-    val condition = parse(response).extract[Map[String, Map[String, JValue]]].get("current_observation")
-    val currentTemp = condition.flatMap(o => Some(o.get("temp_f"))).flatMap(t=>t).getOrElse(JDouble(9999)).extract[Double]
+    val result = for {
+      zipCode <- context.getVar[String]("zipCode")
+      temp <- context.getVar[Double]("temp")
+    } yield cal(zipCode, temp)
 
-    context.log.info(f"URL $url%s. Current temp: $currentTemp%f")
-    context.getVar[Double]("temp").filter(_ > currentTemp).map(_ => new Result(currentTemp))
+    result.get
   }
 }
 

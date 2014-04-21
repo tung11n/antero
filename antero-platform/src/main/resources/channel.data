@@ -1,1 +1,2 @@
 {"id":"weather","channelClass":"antero.channel.WeatherChannel"}
+{"id":"twitter","channelClass":"antero.channel.TwitterChannel"}

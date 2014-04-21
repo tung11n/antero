@@ -20,7 +20,7 @@ trait Identifiable {
  *
  * @param payload
  */
-class Result(val payload: Any) {
+case class Result(payload: Any) {
 
   def extract[A: ClassTag]: A = {
     payload match {

@@ -36,12 +36,14 @@ class Store extends Actor with ActorLogging {
 
       val channelFactory = context.actorOf(ChannelFactory.props("config/channel.data", configStore))
       val deviceFactory = context.actorOf(DeviceFactory.props("config/device.data"))
+      val credentialFactory = context.actorOf(CredentialFactory.props("config/credential.data"))
       val userFactory = context.actorOf(UserFactory.props("config/user.data"))
       val triggerFactory = context.actorOf(TriggerFactory.props("config/trigger.data", configStore))
 
       factories = Map("channel" -> channelFactory,
                       "trigger" -> triggerFactory,
                       "device" -> deviceFactory,
+                      "credential" -> credentialFactory,
                       "user" -> userFactory)
 
       countdown = Countdown(factories.size)
@@ -82,6 +84,7 @@ case class Get(id: String) extends FactoryEvent
 case object GetAll extends FactoryEvent
 case class HasTrigger(trigger: Future[Trigger]) extends FactoryEvent
 case class HasDevice(device: Device) extends FactoryEvent
+case class HasCredential(credential: Credential) extends FactoryEvent
 
 
 class ObjectFactory[A <: Builder](objectFile: String)(implicit m: Manifest[A]) extends Actor with ActorLogging {
@@ -110,14 +113,14 @@ class DeviceFactory(objectFile: String) extends ObjectFactory[DeviceBuilder](obj
   override def receive = {
     case Get(id) =>
       Future {
-        objects.get(id).map[Device](d => new Device(d.id, d.name, d.userName, d.proprietaryId))
+        objects.get(id).map(d => new Device(d.id, d.name, d.userId, d.proprietaryId))
       } pipeTo sender
 
     case Load(f) =>
       super.receive.apply(Load(f))
       factories = f
       objects.values
-        .map(d => new Device(d.id, d.name, d.userName, d.proprietaryId))
+        .map(d => new Device(d.id, d.name, d.userId, d.proprietaryId))
         .foreach(d => factories.get("user").map(ref => ref ! HasDevice(d)))
 
     case e: FactoryEvent => super.receive.apply(e)
@@ -126,6 +129,36 @@ class DeviceFactory(objectFile: String) extends ObjectFactory[DeviceBuilder](obj
 
 object DeviceFactory {
   def props(objectFile: String) = Props(new DeviceFactory(objectFile))
+}
+
+/**
+ * Factory for loading user credentials
+ *
+ * @param objectFile: user file
+ */
+class CredentialFactory(objectFile: String) extends ObjectFactory[TwitterCredentialBuilder](objectFile) {
+  implicit val ec = context.dispatcher
+  private var factories: Map[String, ActorRef] = _
+
+  override def receive = {
+    case Get(id) =>
+      Future {
+        objects.get(id).map(d => new TwitterCredential(d.id, d.name, d.userId, d.accessKey, d.accessSecret))
+      } pipeTo sender
+
+    case Load(f) =>
+      super.receive.apply(Load(f))
+      factories = f
+      objects.values
+        .map(d => new TwitterCredential(d.id, d.name, d.userId, d.accessKey, d.accessSecret))
+        .foreach(d => factories.get("user").map(ref => ref ! HasCredential(d)))
+
+    case e: FactoryEvent => super.receive.apply(e)
+  }
+}
+
+object CredentialFactory {
+  def props(objectFile: String) = Props(new CredentialFactory(objectFile))
 }
 
 /**
@@ -146,7 +179,10 @@ class UserFactory(objectFile: String) extends ObjectFactory[UserBuilder](objectF
       } pipeTo customer
 
     case HasDevice(device) =>
-      users.get(device.userId) foreach {u => u.addDevice(device)}
+      users.get(device.userId) foreach {_.addDevice(device)}
+
+    case HasCredential(credential) =>
+      users.get(credential.userId) foreach(_.addCredential(credential))
 
     case Load(receipt) =>
       super.receive.apply(Load(receipt))
@@ -211,7 +247,6 @@ class TriggerFactory(objectFile: String, val configStore: ConfigStore) extends O
       }
 */
     case GetAll =>
-
       for {
         b <- objects.values
         trigger <- createTrigger(b)
@@ -281,19 +316,19 @@ case class TriggerBuilder(id: String,
                           variables: Map[String, String],
                           active: Boolean) extends Builder
 
-case class TriggerBuilder2(id: String,
-                           event: Event[AnyRef],
-                           userName: String,
-                           variables: Map[String, String]) extends Builder
-
 case class UserBuilder(id: String,
                        userName: String) extends Builder
 
 case class DeviceBuilder(id: String,
                          name: String,
-                         userName: String,
+                         userId: String,
                          proprietaryId: String) extends Builder
 
+case class TwitterCredentialBuilder(id: String,
+                                    name: String,
+                                    userId: String,
+                                    accessKey: String,
+                                    accessSecret: String) extends Builder
 /**
  * DataType passed around as message types
  */

@@ -1,19 +1,28 @@
 package antero.processor
 
+//import antero.processor.Evaluate
 import antero.system._
 import antero.system.Acknowledge
+import antero.system.Build
 import antero.system.Config
+import antero.system.Notify
+import antero.system.Ready
+import antero.system.RegisterTrigger
+import antero.system.Result
 import antero.utils.Conversion._
-import akka.actor.{ActorLogging, ActorRef, Props, Actor}
+import akka.actor._
 import scala.concurrent.duration.Duration
 import java.util.concurrent.TimeUnit
-import akka.routing.RoundRobinPool
 import akka.pattern.ask
 import akka.util.Timeout
 import scala.util.{Try, Success, Failure}
 import scala.concurrent.{ExecutionContext, Future}
 import akka.event.LoggingAdapter
 import scala.reflect.runtime.universe._
+import akka.routing.RoundRobinPool
+import scala.util.Failure
+import scala.Some
+import scala.util.Success
 
 
 /**
@@ -114,7 +123,7 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
 
   def evaluate(trigger: Trigger): Option[Result] = {
     try {
-      val evaluationContext = new SimpleEvaluationContext(log, trigger.variables)
+      val evaluationContext = new SimpleEvaluationContext(log, trigger.variables, context)
       trigger.event.predicate.evaluate(evaluationContext)
     } catch {
       case e:Exception =>
@@ -128,7 +137,8 @@ class Worker(notifier: ActorRef, messageBuilder: ActorRef) extends Actor with Ac
  * A simple evaluation context
  */
 class SimpleEvaluationContext(val log: LoggingAdapter,
-                              val vars: Map[String,String]) extends EvaluationContext {
+                              val vars: Map[String,String],
+                              val actorContext: ActorContext) extends EvaluationContext {
 
   def getVar[A: TypeTag](varName: String): Option[A] = convertTo(vars)(varName)
 }

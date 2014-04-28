@@ -11,10 +11,14 @@ import org.json4s._
 import scala.Some
 import scala.Predef._
 import scala.Some
+import spray.http.{HttpResponse, HttpRequest}
+import scala.concurrent.Future
+import spray.client.pipelining._
+
 
 trait WeatherApi {
-  val WundergroundUrl = "http://api.wunderground.com/api/"
-  val ConditionMethodCall = "/conditions/q/"
+  val WeatherApiUrl = "http://api.wunderground.com/api"
+  val ConditionMethodCall = "conditions/q"
 }
 
 /**
@@ -32,7 +36,7 @@ class WeatherChannel extends Channel {
         "Cold Condition Alert",
         60000,
         this,
-        TemperaturePredicate(configStore),
+        SprayTemperaturePredicate(configStore),
         "Current temperature at zipcode $zipCode is $$, lower than $temp"))
   }
 
@@ -51,6 +55,36 @@ class WeatherChannel extends Channel {
   }
 }
 
+
+class SprayTemperaturePredicate(val configStore: ConfigStore) extends Predicate with WeatherApi {
+  val apiKey = configStore.configMap.get("weatherApiKey") getOrElse ""
+
+  def evaluate(context: EvaluationContext): Option[Result] = {
+    implicit val jsonFormats: Formats = DefaultFormats
+    implicit val system = context.actorContext
+    import system.dispatcher
+
+    def cal(zipCode: String, temp: Double): Option[Result] = {
+      val url = s"$WeatherApiUrl/$apiKey/$ConditionMethodCall/$zipCode.json"
+
+      val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
+      val response: Future[HttpResponse] = pipeline(Get(url))
+
+      response.foreach { response =>
+        val condition = parse(response.entity.asString).extract[Map[String, Map[String, JValue]]].get("current_observation")
+        condition.flatMap(_.get("temp_f")).map(_.extract[Double]).filter(_ < temp).map(Result)
+      }
+    }
+
+    val result = for {
+      zipCode <- context.getVar[String]("zipCode")
+      temp <- context.getVar[Double]("temp")
+    } yield cal(zipCode, temp)
+
+    result.get
+  }
+}
+
 class TemperaturePredicate(val configStore: ConfigStore) extends Predicate with WeatherApi {
   val apiKey = configStore.configMap.get("weatherApiKey") getOrElse ""
 
@@ -58,7 +92,7 @@ class TemperaturePredicate(val configStore: ConfigStore) extends Predicate with 
     implicit val jsonFormats: Formats = DefaultFormats
 
     def cal(zipCode: String, temp: Double): Option[Result] = {
-      val url = new URL(WundergroundUrl + apiKey + ConditionMethodCall + zipCode + ".json")
+      val url = new URL(s"$WeatherApiUrl/$apiKey/$ConditionMethodCall/$zipCode.json")
 
       val response = Source.fromURL(url, StandardCharsets.UTF_8.name()).mkString
       val condition = parse(response).extract[Map[String, Map[String, JValue]]].get("current_observation")
@@ -75,12 +109,12 @@ class TemperaturePredicate(val configStore: ConfigStore) extends Predicate with 
   }
 }
 
-object TemperaturePredicate {
-  var predicate: TemperaturePredicate = _
+object SprayTemperaturePredicate {
+  var predicate: SprayTemperaturePredicate = _
 
-  def apply(configStore: ConfigStore): TemperaturePredicate = {
+  def apply(configStore: ConfigStore): SprayTemperaturePredicate = {
     if (predicate == null)
-      predicate = new TemperaturePredicate(configStore)
+      predicate = new SprayTemperaturePredicate(configStore)
     predicate
   }
 }

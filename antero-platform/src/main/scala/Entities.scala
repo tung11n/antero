@@ -3,6 +3,7 @@ package antero.system
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 import akka.event.LoggingAdapter
+import akka.actor.ActorContext
 
 /**
  * Created by tungtt on 2/8/14.
@@ -36,6 +37,7 @@ case class Result(payload: Any) {
  * Sandbox specific environment for evaluation of predicates
  */
 trait EvaluationContext {
+  def actorContext: ActorContext
   def log: LoggingAdapter
   def getVar[A: TypeTag](varName: String): Option[A]
 }
@@ -98,19 +100,21 @@ class Device(val id: String,
 }
 
 /**
- * Represents an user and devices registered under this user
+ * Represents an user, devices and credentials registered under this user
  *
  * @param id
  * @param userName
  */
 class User(val id: String, val userName: String) extends Identifiable {
   private var devices = List[Device]()
+  private var credentials = List[Credential]()
 
-  def getDevices = devices
+  def getDevices = List(devices)
+  def getCredentials = List(credentials)
 
-  def addDevice(device: Device) = {
-    devices = device::devices
-  }
+  def addDevice(device: Device) = devices = device::devices
+
+  def addCredential(credential: Credential) = credentials = credential::credentials
 
   override def toString = userName
 }
@@ -131,3 +135,10 @@ class Trigger(val id: String,
               val user: User) extends Identifiable
 
 case object PerpetuallyFalseTrigger extends Trigger("", null, Map(), DefaultUser)
+
+trait Credential extends Identifiable {
+  val name: String
+  val userId: String
+}
+
+class TwitterCredential(val id: String, val name: String, val userId: String, val tokenKey: String, val tokenSecret: String) extends Credential

@@ -36,7 +36,7 @@ class WeatherChannel extends Channel {
         "Cold Condition Alert",
         60000,
         this,
-        SprayTemperaturePredicate(configStore),
+        TemperaturePredicate(configStore),
         "Current temperature at zipcode $zipCode is $$, lower than $temp"))
   }
 
@@ -55,7 +55,7 @@ class WeatherChannel extends Channel {
   }
 }
 
-
+/*
 class SprayTemperaturePredicate(val configStore: ConfigStore) extends Predicate with WeatherApi {
   val apiKey = configStore.configMap.get("weatherApiKey") getOrElse ""
 
@@ -85,6 +85,16 @@ class SprayTemperaturePredicate(val configStore: ConfigStore) extends Predicate 
   }
 }
 
+object SprayTemperaturePredicate {
+  var predicate: SprayTemperaturePredicate = _
+
+  def apply(configStore: ConfigStore): SprayTemperaturePredicate = {
+    if (predicate == null)
+      predicate = new SprayTemperaturePredicate(configStore)
+    predicate
+  }
+}
+*/
 class TemperaturePredicate(val configStore: ConfigStore) extends Predicate with WeatherApi {
   val apiKey = configStore.configMap.get("weatherApiKey") getOrElse ""
 
@@ -109,12 +119,12 @@ class TemperaturePredicate(val configStore: ConfigStore) extends Predicate with 
   }
 }
 
-object SprayTemperaturePredicate {
-  var predicate: SprayTemperaturePredicate = _
+object TemperaturePredicate {
+  var predicate: TemperaturePredicate = _
 
-  def apply(configStore: ConfigStore): SprayTemperaturePredicate = {
+  def apply(configStore: ConfigStore): TemperaturePredicate = {
     if (predicate == null)
-      predicate = new SprayTemperaturePredicate(configStore)
+      predicate = new TemperaturePredicate(configStore)
     predicate
   }
 }

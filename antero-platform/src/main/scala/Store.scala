@@ -182,6 +182,7 @@ class UserFactory(objectFile: String) extends ObjectFactory[UserBuilder](objectF
       users.get(device.userId) foreach {_.addDevice(device)}
 
     case HasCredential(credential) =>
+      log.info("Adding credential")
       users.get(credential.userId) foreach(_.addCredential(credential))
 
     case Load(receipt) =>
@@ -333,5 +334,6 @@ case class TwitterCredentialBuilder(id: String,
  * DataType passed around as message types
  */
 sealed trait DataType
+
 case class UserDetails(userName: String) extends DataType
 case class TriggerDetails(triggerId: String) extends DataType

@@ -109,8 +109,8 @@ class User(val id: String, val userName: String) extends Identifiable {
   private var devices = List[Device]()
   private var credentials = List[Credential]()
 
-  def getDevices = List(devices)
-  def getCredentials = List(credentials)
+  def getDevices = devices
+  def getCredentials = credentials
 
   def addDevice(device: Device) = devices = device::devices
 

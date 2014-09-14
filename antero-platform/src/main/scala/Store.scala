@@ -182,8 +182,7 @@ class UserFactory(objectFile: String) extends ObjectFactory[UserBuilder](objectF
       users.get(device.userId) foreach {_.addDevice(device)}
 
     case HasCredential(credential) =>
-      log.info("Adding credential")
-      users.get(credential.userId) foreach(_.addCredential(credential))
+      users.get(credential.userId) foreach {_.addCredential(credential)}
 
     case Load(receipt) =>
       super.receive.apply(Load(receipt))

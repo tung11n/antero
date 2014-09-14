@@ -41,8 +41,7 @@ object Utils {
 
   case class Countdown(var count: Int) {
     def inc = {
-      count = if (count > 0) count - 1 else count
-      count
+      if (count > 0) count - 1 else count
     }
 
     def reset: Boolean = count == 0

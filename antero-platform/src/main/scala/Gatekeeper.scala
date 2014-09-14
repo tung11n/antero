@@ -19,6 +19,7 @@ class Bootstrap extends Bootable{
   val system = ActorSystem("antero")
 
   def startup = {
+    println("Starting antero service")
     val gatekeeper = system.actorOf(Props(classOf[Gatekeeper], "./config/antero.properties"))
     gatekeeper ! Ready("config")
   }
